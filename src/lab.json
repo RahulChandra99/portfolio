@@ -1,0 +1,51 @@
+{
+  "synced": "2026-11-11T11:17:37.404Z",
+  "items": [
+    {
+      "key": "RahulChandra99/chrome-extensions/shred-log/Shred Log Link Saver",
+      "title": "Shred Log Link Saver",
+      "category": "extensions",
+      "summary": "One click (or a right-click on any link) saves it to my personal tracker app, sorted into the right topic.",
+      "highlights": [
+        "Rule-based topic sorter that runs locally, plus custom rules",
+        "Offline queue that delivers into a web app through a content-script bridge",
+        "Right-click menu, bookmarks-bar inbox folder and keyboard shortcuts"
+      ],
+      "tags": [
+        "JavaScript",
+        "Chrome MV3",
+        "Service Worker"
+      ],
+      "image": "https://raw.githubusercontent.com/RahulChandra99/chrome-extensions/main/shred-log/screenshot.png",
+      "video": null,
+      "live": null,
+      "code": "https://github.com/RahulChandra99/chrome-extensions/tree/main/shred-log",
+      "repo": "chrome-extensions",
+      "updated": "2026-11-11T11:16:49Z",
+      "status": "active"
+    },
+    {
+      "key": "RahulChandra99/chrome-extensions/youtube-summarizer/YouTube Exact Summarizer",
+      "title": "YouTube Exact Summarizer",
+      "category": "extensions",
+      "summary": "Adds a summary panel to YouTube that turns the transcript into sorted notes with clickable timestamps.",
+      "highlights": [
+        "Reads the caption track, with the transcript panel as a fallback",
+        "Streams a structured summary from the Claude API",
+        "Every point links back to its moment in the video"
+      ],
+      "tags": [
+        "JavaScript",
+        "Chrome MV3",
+        "Claude API"
+      ],
+      "image": null,
+      "video": null,
+      "live": null,
+      "code": "https://github.com/RahulChandra99/chrome-extensions/tree/main/youtube-summarizer",
+      "repo": "chrome-extensions",
+      "updated": "2026-11-11T11:16:49Z",
+      "status": "active"
+    }
+  ]
+}
