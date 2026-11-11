@@ -14,7 +14,7 @@ npm run dev
 ## Editing content
 
 - **Profile, featured game, experience and Projects:** `src/data.js`
-- **Lab:** fills itself. Any public repo of mine tagged with the `portfolio` topic that has a `portfolio.json` at its root shows up there. `npm run build` saves a snapshot to `src/lab.json`, and the page refreshes it from GitHub when it loads. See `src/lab.js` for the format.
+- **Chrome extensions and other synced projects** fill themselves. Any public repo of mine tagged `portfolio` with a `portfolio.json` at its root shows up in Projects under its category. `npm run build` saves a snapshot to `src/lab.json`, and the page refreshes it from GitHub on load. The format is in `src/lab.js`.
 
 ## Deploying
 

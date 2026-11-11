@@ -1,19 +1,12 @@
-// The Lab: side projects pulled from GitHub.
-// Any repo tagged with the `portfolio` topic that has a portfolio.json at its root shows up here.
+// Projects pulled from GitHub into the Projects section.
+// Any repo tagged with the `portfolio` topic that has a portfolio.json at its root shows up there.
 // portfolio.json: { "category": "extensions", "items": [{ title, path, summary, highlights, tags, image, video, live, category }] }
 // A single-project repo can skip "items" and put those fields at the top level.
 
 export const GITHUB_USER = 'RahulChandra99'
 export const LAB_TOPIC = 'portfolio'
 
-export const labCategories = [
-  { id: 'extensions', label: 'Chrome extensions', icon: '🧩' },
-  { id: 'apps', label: 'Apps & web', icon: '📱' },
-  { id: 'games', label: 'Games & prototypes', icon: '🎮' },
-  { id: 'tools', label: 'Tools', icon: '🛠️' },
-]
-
-const known = new Set(labCategories.map(c => c.id))
+const known = new Set(['extensions', 'apps', 'games', 'tools'])
 const alias = { extension: 'extensions', chrome: 'extensions', app: 'apps', web: 'apps', game: 'games', unity: 'games', unreal: 'games', tool: 'tools' }
 const catOf = c => {
   const k = String(c || '').toLowerCase()

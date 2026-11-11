@@ -1,7 +1,7 @@
 // All site content lives here. Edit this file to update the portfolio —
 // no GitHub API calls are needed to render it, so nothing can rate-limit or fail to load.
-// (The Lab section is the exception: it ships with a build-time snapshot and only
-// refreshes from GitHub on top of that. See src/lab.js.)
+// (Projects from GitHub repos tagged `portfolio`, like the Chrome extensions, are the exception.
+// They ship as a build-time snapshot and refresh from GitHub on top of that. See src/lab.js.)
 
 export const profile = {
   name: 'Rahul Chandra',

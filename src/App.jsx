@@ -2,20 +2,22 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import PageBackground from './PageBackground'
 import Terminal from './components/Terminal'
 import GitHubActivity from './components/GitHubActivity'
-import Lab from './components/Lab'
+import useSyncedProjects from './useSyncedProjects'
 import './styles.css'
 import { profile, featured, experience, projects, filters } from './data'
 
 const nav = [
   { href: '#top', label: 'Home' },
   { href: '#projects', label: 'Projects' },
-  { href: '#lab', label: 'Lab' },
   { href: '#work', label: 'Experience' },
   { href: '#contact', label: 'Connect' },
   { href: '#terminal', label: 'Terminal' },
 ]
 
-const categoryLabel = { unreal: 'Unreal', unity: 'Unity', tools: 'Tools' }
+const categoryLabel = { unreal: 'Unreal', unity: 'Unity', tools: 'Tools', extensions: 'Chrome Extensions', apps: 'Apps', games: 'Games' }
+
+// Initials on a tinted tile, for synced projects that have no screenshot yet
+const initials = t => t.split(/\s+/).filter(w => /^[A-Za-z0-9]/.test(w)).slice(0, 2).map(w => w[0].toUpperCase()).join('')
 
 function ExternalLink({ href, className, children, ...rest }) {
   return (
@@ -153,11 +155,13 @@ function ProjectCard({ project, index }) {
   return (
     <article className="card frame" style={{ '--i': index }}>
       <ExternalLink
-        href={project.video || project.code}
+        href={project.video || project.live || project.code}
         className="card-media"
         aria-label={`${project.video ? 'Watch demo of' : 'View'} ${project.title}`}
       >
-        <img src={project.image} alt="" loading="lazy" />
+        {project.image
+          ? <img src={project.image} alt="" loading="lazy" />
+          : <span className="card-placeholder" aria-hidden="true">{initials(project.title)}</span>}
         <span className="badges badges-overlay">
           <span className="badge badge-pink">Personal</span>
           <span className="badge">{categoryLabel[project.category]}</span>
@@ -171,6 +175,7 @@ function ProjectCard({ project, index }) {
           {project.highlights.map(h => <li key={h}>{h}</li>)}
         </ul>
         <div className="card-actions">
+          {project.live && <ExternalLink href={project.live} className="btn btn-blue">Try it</ExternalLink>}
           {project.video && <ExternalLink href={project.video} className="btn btn-blue"><Icon name="youtube" /> Demo</ExternalLink>}
           {project.code && <ExternalLink href={project.code} className="btn"><Icon name="github" /> Source</ExternalLink>}
         </div>
@@ -189,7 +194,13 @@ function Projects() {
   const [indicator, setIndicator] = useState(null)
   const filtersRef = useRef(null)
   const timer = useRef(null)
-  const visible = shown === 'all' ? projects : projects.filter(p => p.category === shown)
+  const synced = useSyncedProjects()
+  const all = [...projects, ...synced]
+  // Extra filter chips appear only when a synced repo brings a new category (e.g. Chrome Extensions)
+  const chips = [...filters, ...[...new Set(synced.map(p => p.category))]
+    .filter(id => !filters.some(f => f.id === id))
+    .map(id => ({ id, label: categoryLabel[id] || id }))]
+  const visible = shown === 'all' ? all : all.filter(p => p.category === shown)
 
   // Slide the highlight under whichever filter button is active
   useLayoutEffect(() => {
@@ -219,7 +230,7 @@ function Projects() {
 
   return (
     <section className="section" id="projects">
-      <SectionTitle sub="Gameplay systems and tools, with demo videos and source on GitHub.">
+      <SectionTitle sub="Gameplay systems, tools and Chrome extensions, with demos and source on GitHub.">
         Projects
       </SectionTitle>
       <div className="filters" role="group" aria-label="Filter projects" ref={filtersRef}>
@@ -230,7 +241,7 @@ function Projects() {
             style={{ width: indicator.w, height: indicator.h, transform: `translate(${indicator.x}px, ${indicator.y}px)` }}
           />
         )}
-        {filters.map(f => (
+        {chips.map(f => (
           <button
             key={f.id}
             className={`btn btn-small filter-btn ${filter === f.id ? 'active' : ''}`}
@@ -298,7 +309,6 @@ export default function App() {
         <Hero />
         <Featured />
         <Projects />
-        <Lab SectionTitle={SectionTitle} />
         <Experience />
         <GitHub />
         <Contact />
