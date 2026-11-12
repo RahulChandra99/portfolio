@@ -761,7 +761,7 @@ h1, h2, h3 { font-weight: 500; line-height: 1.25; }
 
 /* Index header */
 .b-head { margin-bottom: 24px; }
-.b-head h1 { font-size: 1.6rem; font-weight: 500; }
+.b-head h1 { font-size: 1.6rem; font-weight: 500; color: var(--accent); }
 
 /* Shared bits */
 .b-meta {
