@@ -620,7 +620,17 @@ h1, h2, h3 { font-weight: 500; line-height: 1.25; }
 
 /* Contact */
 /* Last section on the page */
-#terminal { padding-bottom: 96px; }
+.contact { padding-bottom: 96px; }
+.contact-block { margin-top: 48px; max-width: 900px; }
+.contact-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 14px;
+}
 
 /* GitHub contributions */
 .gh-activity {

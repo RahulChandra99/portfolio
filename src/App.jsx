@@ -15,7 +15,6 @@ const nav = [
   { href: '#projects', label: 'Projects' },
   { href: '#work', label: 'Experience' },
   { href: '#contact', label: 'Connect' },
-  { href: '#terminal', label: 'Terminal' },
 ]
 // From the journal, section links go back to the home page
 const navHref = href => (onJournal ? `/${href}` : href)
@@ -267,29 +266,7 @@ function Projects() {
   )
 }
 
-function GitHub() {
-  return (
-    <section className="section" id="github">
-      <SectionTitle>GitHub</SectionTitle>
-      <GitHubActivity user={profile.links.github.split('/').pop()} profileUrl={profile.links.github} />
-    </section>
-  )
-}
-
-function TerminalSection() {
-  return (
-    <section className="section" id="terminal">
-      <SectionTitle sub="A small shell for poking around. Type help to see the commands.">
-        Terminal
-      </SectionTitle>
-      <Terminal />
-      <p className="terminal-tip">
-        Tip: try <code>whoami</code>, <code>experience</code> or <code>sudo hire rahul</code>
-      </p>
-    </section>
-  )
-}
-
+// Contact links, GitHub activity and the terminal, as one closing section
 function Contact() {
   const { links } = profile
   return (
@@ -301,7 +278,21 @@ function Contact() {
       <div className="link-row">
         {links.email && <a href={`mailto:${links.email}`} className="btn btn-blue btn-wide"><Icon name="gmail" /> Email me</a>}
         <ExternalLink href={links.linkedin} className="btn btn-wide"><Icon name="linkedin" /> LinkedIn</ExternalLink>
+        <ExternalLink href={links.github} className="btn btn-wide"><Icon name="github" /> GitHub</ExternalLink>
         <ExternalLink href={links.resume} className="btn btn-wide">Resume</ExternalLink>
+      </div>
+
+      <div className="contact-block" id="github">
+        <h3 className="contact-label">GitHub activity</h3>
+        <GitHubActivity user={links.github.split('/').pop()} profileUrl={links.github} />
+      </div>
+
+      <div className="contact-block" id="terminal">
+        <h3 className="contact-label">Terminal</h3>
+        <Terminal />
+        <p className="terminal-tip">
+          Try <code>help</code>, <code>whoami</code>, <code>experience</code> or <code>sudo hire rahul</code>
+        </p>
       </div>
     </section>
   )
@@ -327,9 +318,7 @@ export default function App() {
         <Featured />
         <Projects />
         <Experience />
-        <GitHub />
         <Contact />
-        <TerminalSection />
       </main>
     </>
   )
