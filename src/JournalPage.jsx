@@ -3,23 +3,66 @@ import { marked } from 'marked'
 import useJournal from './useJournal'
 import { timeAgo } from './lab'
 import { profile } from './data'
+import { JOURNAL_REPO, JOURNAL_DIR } from './journal'
 
-const DAY = new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
-const MONTH = new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric' })
-const CLOCK = new Intl.DateTimeFormat('en-GB', { hour: 'numeric', minute: '2-digit', hour12: true })
-
-const dayLabel = iso => DAY.format(new Date(`${iso.slice(0, 10)}T12:00:00`))
-const clock = iso => (/\d{2}:\d{2}/.test(iso) ? CLOCK.format(new Date(iso.replace(' ', 'T'))).toLowerCase() : '')
+const DATE = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+const LONG = new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
+const fmt = (f, iso) => f.format(new Date(`${iso.slice(0, 10)}T12:00:00`))
 
 // GitHub's colours for the languages that show up in my repos
 const LANG = { 'C++': '#f34b7d', 'C#': '#178600', Python: '#3572A5', JavaScript: '#f1e05a', TypeScript: '#3178c6', HTML: '#e34c26', CSS: '#563d7c', ShaderLab: '#222c37' }
 
-// Paragraphs that start with a time ("9:48 pm:" or "21:48 -") become log lines with the time in the gutter
+const KIND = { article: 'Article', update: 'Dev update', thought: 'Thought', commits: 'Commits' }
+const TABS = [
+  { id: 'all', label: 'All' },
+  { id: 'article', label: 'Articles' },
+  { id: 'update', label: 'Dev updates' },
+  { id: 'thought', label: 'Thoughts' },
+]
+const PAGE = 15
+
+// Images in blog/images/ are bundled at build time. One pushed later loads straight from GitHub.
+const IMAGES = import.meta.glob('/blog/images/*', { as: 'url', eager: true })
+function imageUrl(src) {
+  if (!src || /^(https?:)?\/\//.test(src) || src.startsWith('/') || src.startsWith('data:')) return src
+  const path = src.replace(/^\.\//, '')
+  return IMAGES[`/${JOURNAL_DIR}/${path}`] || `https://raw.githubusercontent.com/${JOURNAL_REPO}/main/${JOURNAL_DIR}/${path}`
+}
+
+const slugify = s => s.toLowerCase().replace(/<[^>]+>/g, '').replace(/&[a-z#0-9]+;/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+
+// Markdown to HTML, plus a table of contents from the h2/h3 headings
 function renderBody(md) {
-  return marked.parse(md, { gfm: true, breaks: false }).replace(
-    /<p>(\d{1,2}:\d{2}(?:\s?[ap]m)?)\s*[:\-–]\s*([\s\S]*?)<\/p>/gi,
-    (_, t, rest) => `<p class="log"><time>${t.toLowerCase()}</time><span>${rest}</span></p>`
-  )
+  const toc = []
+  const html = marked.parse(md, { gfm: true, breaks: false })
+    // Paragraphs that start with a time ("9:48 pm:" or "21:48 -") become log lines with the time in the gutter
+    .replace(/<p>(\d{1,2}:\d{2}(?:\s?[ap]m)?)\s*[:\-–]\s*([\s\S]*?)<\/p>/gi,
+      (_, t, rest) => `<p class="log"><time>${t.toLowerCase()}</time><span>${rest}</span></p>`)
+    .replace(/<h([23])>([\s\S]*?)<\/h\1>/g, (_, level, inner) => {
+      const id = slugify(inner)
+      toc.push({ id, level: +level, text: inner.replace(/<[^>]+>/g, '') })
+      return `<h${level} id="${id}">${inner}</h${level}>`
+    })
+    .replace(/(<img[^>]*?src=")([^"]+)"/g, (_, pre, src) => `${pre}${imageUrl(src)}" loading="lazy"`)
+  return { html, toc }
+}
+
+// First real paragraph as plain text, for list rows
+function excerpt(post, n = 190) {
+  if (post.summary) return post.summary
+  const para = post.body
+    .replace(/```[\s\S]*?```/g, '')
+    .split(/\n\s*\n/)
+    .map(p => p.trim())
+    .find(p => p && !/^(#|!\[|>|\||-{3})/.test(p))
+  if (!para) return ''
+  const text = para
+    .replace(/^\d{1,2}:\d{2}(\s?[ap]m)?\s*[:\-–]\s*/i, '')
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+    .replace(/[*_`~]/g, '')
+    .replace(/\s+/g, ' ')
+  return text.length > n ? `${text.slice(0, n).replace(/\s+\S*$/, '')}…` : text
 }
 
 function navigate(e, href) {
@@ -29,66 +72,130 @@ function navigate(e, href) {
   window.dispatchEvent(new PopStateEvent('popstate'))
   window.scrollTo(0, 0)
 }
+const Link = ({ href, className, children, ...rest }) => (
+  <a href={href} className={className} target="_self" onClick={e => navigate(e, href)} {...rest}>{children}</a>
+)
+
+function useRoute() {
+  const read = () => ({ path: window.location.pathname, params: new URLSearchParams(window.location.search) })
+  const [route, setRoute] = useState(read)
+  useEffect(() => {
+    const on = () => setRoute(read())
+    window.addEventListener('popstate', on)
+    return () => window.removeEventListener('popstate', on)
+  }, [])
+  return route
+}
 
 function RepoChip({ repo }) {
   return (
     <a className="j-repo" href={repo.url} target="_blank" rel="noopener noreferrer">
       {repo.language && <span className="j-lang" style={{ '--lang': LANG[repo.language] || 'var(--dim)' }} />}
       <span className="j-repo-name">{repo.name}</span>
-      {repo.pushed && <span className="j-repo-when">pushed {timeAgo(repo.pushed)}</span>}
+      {repo.pushed && <span className="j-repo-when">{timeAgo(repo.pushed)}</span>}
     </a>
   )
 }
 
-function Post({ post, repos, full }) {
-  const html = useMemo(() => renderBody(post.body), [post.body])
-  const href = `/blog/${post.slug}`
-  const linked = post.repos.map(name => repos[name] || { name, url: `https://github.com/${profile.links.github.split('/').pop()}/${name}` })
+function Meta({ kind, date, minutes }) {
   return (
-    <article className={`j-entry j-post ${full ? 'is-full' : ''}`}>
-      <header className="j-post-head">
-        {clock(post.date) && <time className="j-time">{clock(post.date)}</time>}
-        <h2>{full ? post.title : <a href={href} target="_self" onClick={e => navigate(e, href)}>{post.title}</a>}</h2>
+    <p className="b-meta">
+      <span className={`b-kind is-${kind}`}>{KIND[kind]}</span>
+      <time dateTime={date.slice(0, 10)}>{fmt(DATE, date)}</time>
+      {minutes > 1 && <span>{minutes} min read</span>}
+    </p>
+  )
+}
+
+// Cover image, or a plain placeholder with the title when a post has none
+function Cover({ post, className = '' }) {
+  return post.cover
+    ? <img className={`b-cover ${className}`} src={imageUrl(post.cover)} alt="" loading="lazy" />
+    : (
+      <div className={`b-cover b-cover-blank ${className}`} aria-hidden="true">
+        <span>{post.category || KIND[post.type]}</span>
+      </div>
+    )
+}
+
+function Author({ date }) {
+  return (
+    <p className="b-author">
+      <img src={profile.avatar} alt="" width="28" height="28" />
+      <span>{profile.name}</span>
+      {date && <><span className="b-dot" /><span>{fmt(DATE, date)}</span></>}
+    </p>
+  )
+}
+
+// The LiveJournal touch: "Current mood" and "Current music" under an entry
+function Mood({ post }) {
+  if (!post.mood && !post.music && !post.building) return null
+  return (
+    <p className="b-lj">
+      {post.building && <span><b>Currently building:</b>{post.building}</span>}
+      {post.mood && <span><b>Current mood:</b>{post.mood}</span>}
+      {post.music && <span><b>Current music:</b>{post.music}</span>}
+    </p>
+  )
+}
+
+function Featured({ post }) {
+  const href = `/blog/${post.slug}`
+  return (
+    <Link href={href} className="b-featured">
+      <Cover post={post} />
+      <div className="b-featured-text">
+        <Meta kind={post.type} date={post.date} minutes={post.minutes} />
+        <h2>{post.title}</h2>
+        <p>{excerpt(post, 260)}</p>
+        <Author />
+      </div>
+    </Link>
+  )
+}
+
+function PostRow({ post }) {
+  const href = `/blog/${post.slug}`
+  // Thoughts are short, so they read in place instead of linking out
+  if (post.type === 'thought') {
+    const { html } = renderBody(post.body)
+    return (
+      <article className="b-row b-thought">
+        <Meta kind="thought" date={post.date} />
+        {post.title && <h3><Link href={href}>{post.title}</Link></h3>}
+        <div className="j-body" dangerouslySetInnerHTML={{ __html: html }} />
+        <Mood post={post} />
+        <Link href={href} className="b-permalink">Permalink</Link>
+      </article>
+    )
+  }
+  return (
+    <article className={`b-row ${post.cover ? 'has-cover' : ''}`}>
+      <div className="b-row-text">
+        <Meta kind={post.type} date={post.date} minutes={post.minutes} />
+        <h3><Link href={href}>{post.title}</Link></h3>
+        <p className="b-excerpt">{excerpt(post)}</p>
+        {post.type === 'update' && <Mood post={post} />}
         {post.draft && <span className="j-draft">draft</span>}
-      </header>
-      <div className="j-body" dangerouslySetInnerHTML={{ __html: html }} />
-      {linked.length > 0 && (
-        <div className="j-repos">
-          {linked.map(r => <RepoChip key={r.name} repo={r} />)}
-        </div>
-      )}
-      {(post.mood || post.music || post.building || post.tags.length > 0) && (
-        <footer className="j-meta">
-          {post.building && <span><b>building</b> {post.building}</span>}
-          {post.mood && <span><b>mood</b> {post.mood}</span>}
-          {post.music && <span><b>listening to</b> {post.music}</span>}
-          {post.tags.length > 0 && (
-            <span className="j-tags">
-              {post.tags.map(t => (
-                <a key={t} href={`/blog?tag=${encodeURIComponent(t)}`} target="_self" onClick={e => navigate(e, `/blog?tag=${encodeURIComponent(t)}`)}>#{t}</a>
-              ))}
-            </span>
-          )}
-        </footer>
-      )}
+      </div>
+      {post.cover && <Link href={href} className="b-thumb" tabIndex={-1} aria-hidden="true"><img src={imageUrl(post.cover)} alt="" loading="lazy" /></Link>}
     </article>
   )
 }
 
-function Commits({ day }) {
+function CommitRow({ day }) {
   const [open, setOpen] = useState(false)
-  const shown = open ? day.commits : day.commits.slice(0, 3)
   const n = day.commits.length
+  const shown = open ? day.commits : day.commits.slice(0, 3)
   return (
-    <article className="j-entry j-commits">
-      <header className="j-commit-head">
-        <time className="j-time">{clock(day.latest)}</time>
+    <article className="b-row b-commits">
+      <Meta kind="commits" date={day.date} />
+      <p className="b-commit-title">
         <span className="j-commit-icon" aria-hidden="true" />
-        <p>
-          Pushed {n} commit{n > 1 ? 's' : ''} to{' '}
-          <a href={day.repo.url} target="_blank" rel="noopener noreferrer">{day.repo.name}</a>
-        </p>
-      </header>
+        Pushed {n} commit{n > 1 ? 's' : ''} to{' '}
+        <a href={day.repo.url} target="_blank" rel="noopener noreferrer">{day.repo.name}</a>
+      </p>
       <ul className="j-commit-list">
         {shown.map(c => (
           <li key={c.sha}>
@@ -106,184 +213,175 @@ function Commits({ day }) {
   )
 }
 
-const FILTERS = [
-  { id: 'all', label: 'Everything' },
-  { id: 'posts', label: 'Notes' },
-  { id: 'commits', label: 'Commits' },
-]
+function Index({ posts, activity, params }) {
+  const tag = params.get('tag')
+  const [tab, setTab] = useState(() => (TABS.some(t => t.id === params.get('type')) ? params.get('type') : 'all'))
+  const [query, setQuery] = useState('')
+  const [shown, setShown] = useState(PAGE)
+  useEffect(() => setShown(PAGE), [tab, query, tag])
 
-function useRoute() {
-  const read = () => ({ path: window.location.pathname, params: new URLSearchParams(window.location.search) })
-  const [route, setRoute] = useState(read)
-  useEffect(() => {
-    const on = () => setRoute(read())
-    window.addEventListener('popstate', on)
-    return () => window.removeEventListener('popstate', on)
-  }, [])
-  return route
+  const q = query.trim().toLowerCase()
+  const featured = !q && !tag && (tab === 'all' || tab === 'article') ? posts.find(p => p.type === 'article') : null
+
+  const items = useMemo(() => {
+    const list = []
+    for (const p of posts) {
+      if (p === featured) continue
+      if (tab !== 'all' && p.type !== tab) continue
+      if (tag && !p.tags.includes(tag)) continue
+      if (q && !`${p.title} ${p.summary} ${p.body} ${p.tags.join(' ')} ${p.category}`.toLowerCase().includes(q)) continue
+      list.push({ key: p.slug, at: p.date.replace(' ', 'T'), post: p })
+    }
+    // Commits count as dev updates
+    if ((tab === 'all' || tab === 'update') && !tag) {
+      for (const d of activity.days) {
+        if (q && !`${d.repo.name} ${d.commits.map(c => c.subject).join(' ')}`.toLowerCase().includes(q)) continue
+        list.push({ key: d.key, at: d.latest, day: d })
+      }
+    }
+    return list.sort((a, b) => (a.at < b.at ? 1 : -1))
+  }, [posts, activity, tab, tag, q, featured])
+
+  const counts = useMemo(() => {
+    const c = { all: posts.length + activity.days.length, article: 0, update: activity.days.length, thought: 0 }
+    for (const p of posts) c[p.type]++
+    return c
+  }, [posts, activity])
+
+  return (
+    <>
+      <header className="b-head">
+        <p className="b-eyebrow">Blog</p>
+        <h1>Dev updates, articles and thoughts</h1>
+        <p>
+          What I'm building in Unreal, Unity and C++, what broke along the way and how I fixed it.
+          Commits from GitHub land here on their own. <a href="/rss.xml" target="_blank">RSS feed</a>
+        </p>
+      </header>
+
+      {featured && <Featured post={featured} />}
+
+      <div className="b-toolbar">
+        <div className="b-tabs" role="tablist" aria-label="Show">
+          {TABS.map(t => (
+            <button key={t.id} role="tab" aria-selected={tab === t.id} className={tab === t.id ? 'active' : ''} onClick={() => setTab(t.id)}>
+              {t.label} <span>{counts[t.id]}</span>
+            </button>
+          ))}
+        </div>
+        <label className="b-search">
+          <span className="sr-only">Search posts</span>
+          <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" strokeWidth="2" /><path d="m20 20-4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
+          <input type="search" placeholder="Search posts" value={query} onChange={e => setQuery(e.target.value)} />
+        </label>
+      </div>
+
+      {tag && (
+        <p className="j-active-filter">#{tag} <Link href="/blog" className="j-clear">Clear</Link></p>
+      )}
+
+      <div className="b-list">
+        {items.length === 0 && (
+          <p className="j-empty">{q ? `Nothing matches "${query}".` : tab === 'article' ? 'No articles yet. The first one is on its way.' : 'Nothing here yet.'}</p>
+        )}
+        {items.slice(0, shown).map(e => (e.post ? <PostRow key={e.key} post={e.post} /> : <CommitRow key={e.key} day={e.day} />))}
+      </div>
+      {items.length > shown && (
+        <button className="btn b-load" onClick={() => setShown(s => s + PAGE)}>Load more</button>
+      )}
+    </>
+  )
+}
+
+function Single({ post, posts, repos }) {
+  const { html, toc } = useMemo(() => renderBody(post.body), [post.body])
+  const [copied, setCopied] = useState(false)
+  const i = posts.indexOf(post)
+  const older = posts[i + 1]
+  const newer = posts[i - 1]
+  const linked = post.repos.map(name => repos[name] || { name, url: `https://github.com/${JOURNAL_REPO.split('/')[0]}/${name}` })
+  const copy = () => navigator.clipboard?.writeText(window.location.href).then(() => { setCopied(true); setTimeout(() => setCopied(false), 1600) })
+
+  return (
+    <article className={`b-post is-${post.type}`}>
+      <nav className="b-crumbs" aria-label="Breadcrumb">
+        <Link href="/blog">Blog</Link>
+        <span aria-hidden="true">/</span>
+        <Link href={`/blog?type=${post.type}`}>{KIND[post.type]}s</Link>
+      </nav>
+      {post.title && <h1>{post.title}</h1>}
+      <div className="b-post-meta">
+        <Author date={post.date} />
+        {post.minutes > 1 && <span>{post.minutes} min read</span>}
+        {post.draft && <span className="j-draft">draft</span>}
+      </div>
+      {post.cover && <img className="b-post-cover" src={imageUrl(post.cover)} alt="" />}
+
+      <div className={`b-post-grid ${toc.length >= 2 ? 'has-toc' : ''}`}>
+        <div>
+          <div className={`j-body b-prose ${post.type === 'thought' && !post.title ? 'is-big' : ''}`} dangerouslySetInnerHTML={{ __html: html }} />
+          {(post.building || post.mood || post.music) && (
+            <footer className="j-meta">
+              {post.building && <span><b>Currently building:</b>{post.building}</span>}
+              {post.mood && <span><b>Current mood:</b>{post.mood}</span>}
+              {post.music && <span><b>Current music:</b>{post.music}</span>}
+            </footer>
+          )}
+        </div>
+        <aside className="b-aside">
+          {toc.length >= 2 && (
+            <nav className="b-toc" aria-label="On this page">
+              <h3>On this page</h3>
+              {toc.map(t => <a key={t.id} href={`#${t.id}`} target="_self" className={`lvl-${t.level}`}>{t.text}</a>)}
+            </nav>
+          )}
+          {linked.length > 0 && (
+            <div>
+              <h3>Repos</h3>
+              <div className="j-repo-list">{linked.map(r => <RepoChip key={r.name} repo={r} />)}</div>
+            </div>
+          )}
+          {post.tags.length > 0 && (
+            <div>
+              <h3>Tags</h3>
+              <p className="j-tags">{post.tags.map(t => <Link key={t} href={`/blog?tag=${encodeURIComponent(t)}`}>#{t}</Link>)}</p>
+            </div>
+          )}
+          <button className="b-copy" onClick={copy}>{copied ? 'Link copied' : 'Copy link'}</button>
+        </aside>
+      </div>
+
+      <nav className="j-pager" aria-label="More posts">
+        {older ? <Link href={`/blog/${older.slug}`}><span>Older</span>{older.title || excerpt(older, 60)}</Link> : <span />}
+        {newer ? <Link href={`/blog/${newer.slug}`} className="next"><span>Newer</span>{newer.title || excerpt(newer, 60)}</Link> : <span />}
+      </nav>
+    </article>
+  )
 }
 
 export default function Journal() {
   const { posts, activity } = useJournal()
   const { path, params } = useRoute()
-  const [filter, setFilter] = useState('all')
   const slug = decodeURIComponent(path.replace(/^\/blog\/?/, '').replace(/\/$/, ''))
-  const tag = params.get('tag')
-  const month = params.get('month')
-
+  const single = slug ? posts.find(p => p.slug === slug) : null
   const repos = useMemo(() => Object.fromEntries(activity.repos.map(r => [r.name, r])), [activity])
-  const latest = posts[0]
 
   useEffect(() => {
-    const p = slug && posts.find(x => x.slug === slug)
-    document.title = p ? `${p.title} · Rahul's blog` : "Rahul's blog"
-  }, [slug, posts])
-
-  // Posts and commit days, newest first, grouped under a date heading
-  const entries = useMemo(() => {
-    const list = []
-    if (filter !== 'commits') {
-      for (const p of posts) {
-        if (tag && !p.tags.includes(tag)) continue
-        list.push({ kind: 'post', at: p.date.replace(' ', 'T'), day: p.date.slice(0, 10), post: p })
-      }
-    }
-    if (filter !== 'posts' && !tag) {
-      for (const d of activity.days) list.push({ kind: 'commits', at: d.latest, day: d.date, data: d })
-    }
-    return list
-      .filter(e => !month || e.day.startsWith(month))
-      .sort((a, b) => (a.at < b.at ? 1 : -1))
-  }, [posts, activity, filter, tag, month])
-
-  const days = useMemo(() => {
-    const out = []
-    for (const e of entries) {
-      if (out.at(-1)?.day !== e.day) out.push({ day: e.day, items: [] })
-      out.at(-1).items.push(e)
-    }
-    return out
-  }, [entries])
-
-  const months = useMemo(() => {
-    const counts = {}
-    for (const p of posts) counts[p.date.slice(0, 7)] = (counts[p.date.slice(0, 7)] || 0) + 1
-    for (const d of activity.days) counts[d.date.slice(0, 7)] = (counts[d.date.slice(0, 7)] || 0) + 1
-    return Object.entries(counts).sort((a, b) => (a[0] < b[0] ? 1 : -1))
-  }, [posts, activity])
-
-  const tags = useMemo(() => {
-    const counts = {}
-    for (const p of posts) for (const t of p.tags) counts[t] = (counts[t] || 0) + 1
-    return Object.entries(counts).sort((a, b) => b[1] - a[1])
-  }, [posts])
-
-  const single = slug ? posts.find(p => p.slug === slug) : null
-  const index = single ? posts.indexOf(single) : -1
-  const link = (href, label, cls) => <a href={href} className={cls} target="_self" onClick={e => navigate(e, href)}>{label}</a>
+    document.title = single ? `${single.title || 'A thought'} · Rahul Chandra` : 'Blog · Rahul Chandra'
+  }, [single])
 
   return (
     <main className="journal">
-      <div className="j-layout">
-        <aside className="j-side">
-          <div className="j-card j-profile">
-            <img src={profile.avatar} alt="" width="56" height="56" />
-            <div>
-              <p className="j-name">{profile.name}</p>
-              <p className="j-handle">blog · {profile.location}</p>
-            </div>
-          </div>
-          {latest && (latest.building || latest.mood) && (
-            <div className="j-card j-now">
-              {latest.building && <p><b>Building</b>{latest.building}</p>}
-              {latest.mood && <p><b>Mood</b>{latest.mood}</p>}
-            </div>
-          )}
-          {activity.repos.length > 0 && (
-            <div className="j-card">
-              <h3>Recently pushed</h3>
-              <div className="j-repo-list">
-                {activity.repos.slice(0, 5).map(r => <RepoChip key={r.name} repo={r} />)}
-              </div>
-            </div>
-          )}
-          {tags.length > 0 && (
-            <div className="j-card">
-              <h3>Tags</h3>
-              <p className="j-tag-cloud">
-                {tags.map(([t, n]) => (
-                  <a key={t} href={`/blog?tag=${encodeURIComponent(t)}`} target="_self" className={t === tag ? 'active' : ''}
-                    onClick={e => navigate(e, `/blog?tag=${encodeURIComponent(t)}`)}>#{t} <span>{n}</span></a>
-                ))}
-              </p>
-            </div>
-          )}
-          {months.length > 0 && (
-            <div className="j-card">
-              <h3>Archive</h3>
-              <ul className="j-archive">
-                {months.map(([m, n]) => (
-                  <li key={m}>
-                    {link(`/blog?month=${m}`, <>{MONTH.format(new Date(`${m}-15T12:00:00`))} <span>{n}</span></>, m === month ? 'active' : '')}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </aside>
-
-        <div className="j-main">
-          {single ? (
-            <>
-              {link('/blog', '← All entries', 'j-back')}
-              <p className="j-day">{dayLabel(single.date)}</p>
-              <Post post={single} repos={repos} full />
-              <nav className="j-pager" aria-label="More entries">
-                {posts[index + 1] ? link(`/blog/${posts[index + 1].slug}`, <><span>Older</span>{posts[index + 1].title}</>) : <span />}
-                {posts[index - 1] ? link(`/blog/${posts[index - 1].slug}`, <><span>Newer</span>{posts[index - 1].title}</>, 'next') : <span />}
-              </nav>
-            </>
-          ) : slug ? (
-            <div className="j-empty">
-              <p>That entry doesn't exist, or it hasn't synced yet.</p>
-              {link('/blog', '← All entries', 'j-back')}
-            </div>
-          ) : (
-            <>
-              <header className="j-top">
-                <h1>Blog</h1>
-                <p>Notes, ideas and progress as I build. Commits from GitHub show up here on their own.</p>
-              </header>
-              <div className="j-toolbar">
-                <div className="j-filters" role="group" aria-label="Show">
-                  {FILTERS.map(f => (
-                    <button key={f.id} className={filter === f.id ? 'active' : ''} aria-pressed={filter === f.id} onClick={() => setFilter(f.id)}>
-                      {f.label}
-                    </button>
-                  ))}
-                </div>
-                {(tag || month) && (
-                  <p className="j-active-filter">
-                    {tag ? `#${tag}` : MONTH.format(new Date(`${month}-15T12:00:00`))}
-                    {link('/blog', 'Clear', 'j-clear')}
-                  </p>
-                )}
-              </div>
-              {days.length === 0 && <p className="j-empty">Nothing here yet.</p>}
-              {days.map(d => (
-                <section key={d.day} className="j-daygroup">
-                  <h2 className="j-day">{dayLabel(d.day)}</h2>
-                  {d.items.map(e =>
-                    e.kind === 'post'
-                      ? <Post key={e.post.slug} post={e.post} repos={repos} />
-                      : <Commits key={e.data.key} day={e.data} />
-                  )}
-                </section>
-              ))}
-            </>
-          )}
+      {single ? (
+        <Single key={single.slug} post={single} posts={posts} repos={repos} />
+      ) : slug ? (
+        <div className="j-empty">
+          <p>That post doesn't exist, or it hasn't synced yet.</p>
+          <Link href="/blog" className="j-back">Back to the blog</Link>
         </div>
-      </div>
+      ) : (
+        <Index posts={posts} activity={activity} params={params} />
+      )}
     </main>
   )
 }

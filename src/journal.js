@@ -16,6 +16,8 @@ const ACTIVITY_REPOS = 8
 
 // ---- Posts ----
 
+export const TYPES = ['article', 'update', 'thought']
+
 // Frontmatter between --- lines: `key: value`, with [a, b] for lists
 export function parsePost(name, text) {
   const slug = name.replace(/\.md$/, '')
@@ -36,7 +38,7 @@ export function parsePost(name, text) {
   const date = meta.date || slug.slice(0, 10)
   return {
     slug,
-    title: meta.title || slug.slice(11).replace(/-/g, ' '),
+    title: meta.title || (meta.type === 'thought' ? '' : slug.slice(11).replace(/-/g, ' ')),
     date,
     // "2026-11-12 21:48" sorts posts written on the same day
     sortKey: new Date(date.replace(' ', 'T')).getTime() || 0,
@@ -46,6 +48,12 @@ export function parsePost(name, text) {
     music: meta.music || '',
     building: meta.building || '',
     draft: meta.draft === 'true',
+    // article: long-form with a cover and summary. update: dev progress (the default). thought: short, title optional
+    type: TYPES.includes(meta.type) ? meta.type : 'update',
+    summary: meta.summary || '',
+    cover: meta.cover || '',
+    category: meta.category || '',
+    minutes: Math.max(1, Math.round(body.split(/\s+/).filter(Boolean).length / 220)),
     body,
   }
 }

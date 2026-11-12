@@ -18,31 +18,30 @@ npm run dev
 
 ## Blog
 
-The blog at `/blog` mixes my posts with commits from GitHub.
+The blog at `/blog` has three kinds of post, plus my GitHub commits filling in as dev updates on their own.
 
-- **Posts** are Markdown files in `blog/`, named `YYYY-MM-DD-some-slug.md`. Push one and it shows up on the live site within about 15 minutes, no redeploy needed.
-- **Commits** from my recently pushed public repos fill in on their own, one entry per repo per day.
+- **Articles** are long-form, with a cover and summary. The newest one gets the big card at the top.
+- **Dev updates** are progress notes. Lines that start with a time ("9:40 pm: ...") turn into a log.
+- **Thoughts** are short and don't need a title. They read in place on the list.
 
-A post looks like this. Everything in the frontmatter is optional:
+Each post is a Markdown file in `blog/`, named `YYYY-MM-DD-some-slug.md`. Push one and it's on the live site within about 15 minutes, no redeploy. It joins the RSS feed (`/rss.xml`) on the next build. Images go in `blog/images/`. Everything in the frontmatter is optional, and `draft: true` keeps a post on my machine only.
 
 ```md
 ---
+type: article            # article, update (default) or thought
 title: Fixing the wagon desync
 date: 2026-11-12 21:40
+category: Unreal         # shown on the cover
+summary: One line for the card
+cover: images/wagon.png  # path in blog/ or a full URL
 tags: [unreal, multiplayer]
-repos: [some-repo]
-building: Red Rust Pioneers
-mood: tired but it works
-music: whatever's on
+repos: [wagon-game]      # linked under the post
+mood: tired              # LiveJournal-style "Current mood"
+music: Boards of Canada  # "Current music"
+building: the wagon replication
 draft: true
 ---
-
-Normal Markdown here. Images, code blocks, links.
-
-9:48 pm: A line that starts with a time becomes a timestamped log line.
 ```
-
-`draft: true` keeps a post visible in `npm run dev` only. Linked `repos` show as chips under the post.
 
 ## Deploying
 
