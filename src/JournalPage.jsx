@@ -105,17 +105,6 @@ function Meta({ kind, date, minutes }) {
   )
 }
 
-// Cover image, or a plain placeholder with the title when a post has none
-function Cover({ post, className = '' }) {
-  return post.cover
-    ? <img className={`b-cover ${className}`} src={imageUrl(post.cover)} alt="" loading="lazy" />
-    : (
-      <div className={`b-cover b-cover-blank ${className}`} aria-hidden="true">
-        <span>{post.category || KIND[post.type]}</span>
-      </div>
-    )
-}
-
 function Author({ date }) {
   return (
     <p className="b-author">
@@ -123,21 +112,6 @@ function Author({ date }) {
       <span>{profile.name}</span>
       {date && <><span className="b-dot" /><span>{fmt(DATE, date)}</span></>}
     </p>
-  )
-}
-
-function Featured({ post }) {
-  const href = `/dev-blog/${post.slug}`
-  return (
-    <Link href={href} className="b-featured">
-      <Cover post={post} />
-      <div className="b-featured-text">
-        <Meta kind={post.type} date={post.date} minutes={post.minutes} />
-        <h2>{post.title}</h2>
-        <p>{excerpt(post, 260)}</p>
-        <Author />
-      </div>
-    </Link>
   )
 }
 
@@ -194,12 +168,10 @@ function Index({ posts, activity, params }) {
   useEffect(() => { if (tag) setTab('article') }, [tag])
 
   const q = query.trim().toLowerCase()
-  const featured = !q && !tag && tab === 'article' ? posts[0] : null
 
   const items = useMemo(() => {
     const list = []
     if (tab === 'article') for (const p of posts) {
-      if (p === featured) continue
       if (tag && !p.tags.includes(tag)) continue
       if (q && !`${p.title} ${p.summary} ${p.body} ${p.tags.join(' ')} ${p.category}`.toLowerCase().includes(q)) continue
       list.push({ key: p.slug, at: p.date.replace(' ', 'T'), post: p })
@@ -211,7 +183,7 @@ function Index({ posts, activity, params }) {
       }
     }
     return list.sort((a, b) => (a.at < b.at ? 1 : -1))
-  }, [posts, activity, tab, tag, q, featured])
+  }, [posts, activity, tab, tag, q])
 
   const counts = { article: posts.length, commits: activity.days.length }
 
@@ -225,8 +197,6 @@ function Index({ posts, activity, params }) {
           Commits from GitHub land here on their own.
         </p>
       </header>
-
-      {featured && <Featured post={featured} />}
 
       <div className="b-toolbar">
         <div className="b-tabs" role="tablist" aria-label="Show">

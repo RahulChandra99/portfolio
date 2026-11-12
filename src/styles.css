@@ -798,45 +798,6 @@ h1, h2, h3 { font-weight: 500; line-height: 1.25; }
 .b-author { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--muted); }
 .b-author img { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; }
 .b-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--dim); }
-.b-cover { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; border: 1px solid var(--border); }
-.b-cover-blank {
-  display: flex;
-  align-items: flex-end;
-  padding: 18px;
-  background:
-    radial-gradient(rgba(var(--accent-rgb), 0.35) 1px, transparent 1.4px) 0 0 / 16px 16px,
-    var(--panel);
-}
-.b-cover-blank span {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text);
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 3px 8px;
-}
-
-/* Featured article */
-.b-featured {
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 32px;
-  align-items: center;
-  padding: 16px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: var(--panel);
-  margin-bottom: 40px;
-}
-.b-featured:hover { border-color: var(--border-strong); }
-.b-featured:hover h2 { color: var(--accent); }
-.b-featured-text { display: grid; gap: 12px; padding-right: 12px; }
-.b-featured h2 { font-size: 1.6rem; font-weight: 500; line-height: 1.2; }
-.b-featured-text > p:not(.b-meta):not(.b-author) { color: var(--muted); font-size: 0.95rem; }
-
 /* Toolbar */
 .b-toolbar {
   display: flex;
@@ -1044,8 +1005,6 @@ h1, h2, h3 { font-weight: 500; line-height: 1.25; }
 .j-empty { color: var(--muted); padding: 32px 0; }
 
 @media (max-width: 860px) {
-  .b-featured { grid-template-columns: 1fr; gap: 18px; }
-  .b-featured-text { padding: 0 4px 6px; }
   .b-post-grid { grid-template-columns: 1fr; gap: 32px; }
   .b-aside { position: static; }
   .b-aside .b-toc { display: none; }
@@ -1058,7 +1017,6 @@ h1, h2, h3 { font-weight: 500; line-height: 1.25; }
   .b-tabs button { flex: none; }
   .b-row.has-cover { grid-template-columns: 1fr; gap: 14px; }
   .b-thumb { order: -1; }
-  .b-featured h2 { font-size: 1.3rem; }
   .j-body p.log { grid-template-columns: 1fr; gap: 0; }
   .j-pager { grid-template-columns: 1fr; }
 }
