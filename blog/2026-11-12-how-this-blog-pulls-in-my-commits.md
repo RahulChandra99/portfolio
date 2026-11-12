@@ -6,7 +6,6 @@ category: Web
 summary: The blog is a folder of Markdown files in my portfolio repo, and the dev updates fill themselves from GitHub. Here's how that works and what broke while I set it up.
 tags: [portfolio, github]
 repos: [portfolio]
-draft: true
 ---
 
 I wanted somewhere to write about what I'm building that I actually own. No Medium paywall, no platform that might vanish. So the blog is a folder of Markdown files in the same repo as the site.
