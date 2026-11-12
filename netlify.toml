@@ -4,3 +4,14 @@
 
 [build.environment]
   NODE_VERSION = "20"
+
+# The journal lives at /journal and /journal/<post>; the app routes it client-side
+[[redirects]]
+  from = "/journal/*"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/journal"
+  to = "/index.html"
+  status = 200

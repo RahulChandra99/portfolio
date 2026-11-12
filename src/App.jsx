@@ -1,9 +1,13 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import PageBackground from './PageBackground'
 import Terminal from './components/Terminal'
 import GitHubActivity from './components/GitHubActivity'
 import useSyncedProjects from './useSyncedProjects'
 import './styles.css'
+
+// Separate chunk, so the Markdown parser only loads on the journal
+const Journal = lazy(() => import('./JournalPage'))
+const onJournal = window.location.pathname.startsWith('/journal')
 import { profile, featured, experience, projects, filters } from './data'
 
 const nav = [
@@ -13,6 +17,8 @@ const nav = [
   { href: '#contact', label: 'Connect' },
   { href: '#terminal', label: 'Terminal' },
 ]
+// From the journal, section links go back to the home page
+const navHref = href => (onJournal ? `/${href}` : href)
 
 const categoryLabel = { unreal: 'Unreal', unity: 'Unity', tools: 'Tools', extensions: 'Chrome Extensions', apps: 'Apps', games: 'Games' }
 
@@ -46,7 +52,8 @@ function Header() {
           <span className="visually-hidden">Menu</span>
         </button>
         <div id="nav-links" className={`nav-links ${open ? 'open' : ''}`} onClick={() => setOpen(false)}>
-          {nav.map(n => <a key={n.href} href={n.href} target="_self">{n.label}</a>)}
+          {nav.map(n => <a key={n.href} href={navHref(n.href)} target="_self">{n.label}</a>)}
+          <a href="/journal" target="_self" className={onJournal ? 'active' : ''} aria-current={onJournal ? 'page' : undefined}>Journal</a>
           <ExternalLink href={profile.links.resume}>Resume</ExternalLink>
         </div>
       </nav>
@@ -301,6 +308,16 @@ function Contact() {
 }
 
 export default function App() {
+  if (onJournal) {
+    return (
+      <>
+        <Header />
+        <Suspense fallback={<main className="journal" />}>
+          <Journal />
+        </Suspense>
+      </>
+    )
+  }
   return (
     <>
       <a href="#work" className="skip-link" target="_self">Skip to content</a>

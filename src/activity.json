@@ -1,0 +1,287 @@
+{
+  "synced": "2026-11-12T09:21:19.052Z",
+  "repos": [
+    {
+      "name": "chrome-extensions",
+      "url": "https://github.com/RahulChandra99/chrome-extensions",
+      "description": "Small Chrome extensions I build for my own workflow",
+      "language": "JavaScript",
+      "stars": 0,
+      "pushed": "2026-11-11T22:12:45Z"
+    },
+    {
+      "name": "portfolio",
+      "url": "https://github.com/RahulChandra99/portfolio",
+      "description": "Source for my portfolio site. Game programming work, experience, and a Lab of side projects that fills itself from GitHub.",
+      "language": "JavaScript",
+      "stars": 0,
+      "pushed": "2026-11-11T11:47:09Z"
+    },
+    {
+      "name": "custom-editor-tools-unity",
+      "url": "https://github.com/RahulChandra99/custom-editor-tools-unity",
+      "description": "collection of custom editor tools that can be used in unity projects",
+      "language": "C#",
+      "stars": 2,
+      "pushed": "2026-09-07T20:56:47Z"
+    },
+    {
+      "name": "unreal-automation-extension-python-qt",
+      "url": "https://github.com/RahulChandra99/unreal-automation-extension-python-qt",
+      "description": "bournemouth university assignment : python based unreal engine editor tool",
+      "language": "Python",
+      "stars": 2,
+      "pushed": "2026-09-07T20:55:24Z"
+    },
+    {
+      "name": "procedural-maze-generator-cpp",
+      "url": "https://github.com/RahulChandra99/procedural-maze-generator-cpp",
+      "description": "bournemouth university assignment : procedural maze generation using cpp and qt",
+      "language": "C++",
+      "stars": 1,
+      "pushed": "2026-09-07T20:48:21Z"
+    },
+    {
+      "name": "unreal-cpp-multiplayer-custom-fps",
+      "url": "https://github.com/RahulChandra99/unreal-cpp-multiplayer-custom-fps",
+      "description": "c++ based multiplayer fps game with steam sessions integrated",
+      "language": "C++",
+      "stars": 2,
+      "pushed": "2026-09-07T20:41:09Z"
+    },
+    {
+      "name": "unreal-cpp-combat-GAS",
+      "url": "https://github.com/RahulChandra99/unreal-cpp-combat-GAS",
+      "description": "c++ gameplay mechanics with GAS in UE5",
+      "language": "C++",
+      "stars": 3,
+      "pushed": "2026-09-07T20:39:55Z"
+    },
+    {
+      "name": "unreal-cpp-interaction-weapon-stealth-combat-ai-system",
+      "url": "https://github.com/RahulChandra99/unreal-cpp-interaction-weapon-stealth-combat-ai-system",
+      "description": "c++ based weapon & interactions system",
+      "language": "C++",
+      "stars": 4,
+      "pushed": "2026-09-07T20:38:18Z"
+    }
+  ],
+  "days": [
+    {
+      "key": "chrome-extensions@2026-11-11",
+      "repo": {
+        "name": "chrome-extensions",
+        "url": "https://github.com/RahulChandra99/chrome-extensions",
+        "description": "Small Chrome extensions I build for my own workflow",
+        "language": "JavaScript",
+        "stars": 0,
+        "pushed": "2026-11-11T22:12:45Z"
+      },
+      "date": "2026-11-11",
+      "latest": "2026-11-11T22:12:43Z",
+      "commits": [
+        {
+          "sha": "b08cab5",
+          "subject": "Accept a link and a short note from another extension",
+          "url": "https://github.com/RahulChandra99/chrome-extensions/commit/b08cab53f7915a41c2b919aa029fa42cb2afcf93",
+          "at": "2026-11-11T22:12:43Z"
+        },
+        {
+          "sha": "b11ca82",
+          "subject": "Rebuild the summarizer as Video to Notes",
+          "url": "https://github.com/RahulChandra99/chrome-extensions/commit/b11ca8205508e1edd6a2240bd485886bf19fdc69",
+          "at": "2026-11-11T22:12:43Z"
+        },
+        {
+          "sha": "370a128",
+          "subject": "Take the link saver off the readme and portfolio list",
+          "url": "https://github.com/RahulChandra99/chrome-extensions/commit/370a128aa4c05a86fda69c9ce5856a8300552fbc",
+          "at": "2026-11-11T11:41:54Z"
+        },
+        {
+          "sha": "cb36230",
+          "subject": "Swap the emoji topic icons for colour dots and letter tiles",
+          "url": "https://github.com/RahulChandra99/chrome-extensions/commit/cb3623021f65f1143f51ae7c2e1102a78800e42c",
+          "at": "2026-11-11T11:29:05Z"
+        },
+        {
+          "sha": "e864ed3",
+          "subject": "Rename the bookmarks folder to Shred Log inbox and rewrite the readme",
+          "url": "https://github.com/RahulChandra99/chrome-extensions/commit/e864ed306c53c2742501eb17f7d33c490b06dd72",
+          "at": "2026-11-11T11:25:10Z"
+        },
+        {
+          "sha": "7428edf",
+          "subject": "Add Shred Log link saver extension",
+          "url": "https://github.com/RahulChandra99/chrome-extensions/commit/7428edf1276f2e913c3a928db2773b8e3fe17209",
+          "at": "2026-11-11T10:58:16Z"
+        },
+        {
+          "sha": "fcec696",
+          "subject": "Add YouTube summarizer extension",
+          "url": "https://github.com/RahulChandra99/chrome-extensions/commit/fcec69640e852b27383d41101ddedf815eadfc86",
+          "at": "2026-11-11T10:58:16Z"
+        },
+        {
+          "sha": "7da4ad5",
+          "subject": "Add repo readme, license and portfolio info",
+          "url": "https://github.com/RahulChandra99/chrome-extensions/commit/7da4ad563549f1f06a91c8eabcb62a5ab19188e6",
+          "at": "2026-11-11T10:58:16Z"
+        }
+      ]
+    },
+    {
+      "key": "portfolio@2026-11-11",
+      "repo": {
+        "name": "portfolio",
+        "url": "https://github.com/RahulChandra99/portfolio",
+        "description": "Source for my portfolio site. Game programming work, experience, and a Lab of side projects that fills itself from GitHub.",
+        "language": "JavaScript",
+        "stars": 0,
+        "pushed": "2026-11-11T11:47:09Z"
+      },
+      "date": "2026-11-11",
+      "latest": "2026-11-11T11:29:07Z",
+      "commits": [
+        {
+          "sha": "26229d7",
+          "subject": "Show Chrome extensions as a Projects filter instead of a separate Lab section",
+          "url": "https://github.com/RahulChandra99/portfolio/commit/26229d7c52109f4029da01bbf1fc839b65e205bb",
+          "at": "2026-11-11T11:29:07Z"
+        },
+        {
+          "sha": "d67c7cc",
+          "subject": "Portfolio site with Lab section synced from GitHub",
+          "url": "https://github.com/RahulChandra99/portfolio/commit/d67c7cc6a1af4de509537a658722a48639da9b08",
+          "at": "2026-11-11T11:20:56Z"
+        }
+      ]
+    },
+    {
+      "key": "custom-editor-tools-unity@2026-09-07",
+      "repo": {
+        "name": "custom-editor-tools-unity",
+        "url": "https://github.com/RahulChandra99/custom-editor-tools-unity",
+        "description": "collection of custom editor tools that can be used in unity projects",
+        "language": "C#",
+        "stars": 2,
+        "pushed": "2026-09-07T20:56:47Z"
+      },
+      "date": "2026-09-07",
+      "latest": "2026-09-07T20:56:46Z",
+      "commits": [
+        {
+          "sha": "522e210",
+          "subject": "Add files via upload",
+          "url": "https://github.com/RahulChandra99/custom-editor-tools-unity/commit/522e21081eced4dcc6ef1ff4205446e96d6aff7c",
+          "at": "2026-09-07T20:56:46Z"
+        }
+      ]
+    },
+    {
+      "key": "unreal-automation-extension-python-qt@2026-09-07",
+      "repo": {
+        "name": "unreal-automation-extension-python-qt",
+        "url": "https://github.com/RahulChandra99/unreal-automation-extension-python-qt",
+        "description": "bournemouth university assignment : python based unreal engine editor tool",
+        "language": "Python",
+        "stars": 2,
+        "pushed": "2026-09-07T20:55:24Z"
+      },
+      "date": "2026-09-07",
+      "latest": "2026-09-07T20:55:23Z",
+      "commits": [
+        {
+          "sha": "edf645c",
+          "subject": "Add files via upload",
+          "url": "https://github.com/RahulChandra99/unreal-automation-extension-python-qt/commit/edf645cf666748c1c99e0266fe430c8cfc6362aa",
+          "at": "2026-09-07T20:55:23Z"
+        }
+      ]
+    },
+    {
+      "key": "procedural-maze-generator-cpp@2026-09-07",
+      "repo": {
+        "name": "procedural-maze-generator-cpp",
+        "url": "https://github.com/RahulChandra99/procedural-maze-generator-cpp",
+        "description": "bournemouth university assignment : procedural maze generation using cpp and qt",
+        "language": "C++",
+        "stars": 1,
+        "pushed": "2026-09-07T20:48:21Z"
+      },
+      "date": "2026-09-07",
+      "latest": "2026-09-07T20:48:20Z",
+      "commits": [
+        {
+          "sha": "75f6996",
+          "subject": "Add files via upload",
+          "url": "https://github.com/RahulChandra99/procedural-maze-generator-cpp/commit/75f699610d32d78f343f798f155a2915c2aeed17",
+          "at": "2026-09-07T20:48:20Z"
+        }
+      ]
+    },
+    {
+      "key": "unreal-cpp-multiplayer-custom-fps@2026-09-07",
+      "repo": {
+        "name": "unreal-cpp-multiplayer-custom-fps",
+        "url": "https://github.com/RahulChandra99/unreal-cpp-multiplayer-custom-fps",
+        "description": "c++ based multiplayer fps game with steam sessions integrated",
+        "language": "C++",
+        "stars": 2,
+        "pushed": "2026-09-07T20:41:09Z"
+      },
+      "date": "2026-09-07",
+      "latest": "2026-09-07T20:41:08Z",
+      "commits": [
+        {
+          "sha": "6492408",
+          "subject": "Add files via upload",
+          "url": "https://github.com/RahulChandra99/unreal-cpp-multiplayer-custom-fps/commit/64924089c67923378cc0bd5f7e18ccec99994eed",
+          "at": "2026-09-07T20:41:08Z"
+        }
+      ]
+    },
+    {
+      "key": "unreal-cpp-combat-GAS@2026-09-07",
+      "repo": {
+        "name": "unreal-cpp-combat-GAS",
+        "url": "https://github.com/RahulChandra99/unreal-cpp-combat-GAS",
+        "description": "c++ gameplay mechanics with GAS in UE5",
+        "language": "C++",
+        "stars": 3,
+        "pushed": "2026-09-07T20:39:55Z"
+      },
+      "date": "2026-09-07",
+      "latest": "2026-09-07T20:39:53Z",
+      "commits": [
+        {
+          "sha": "7600259",
+          "subject": "Add files via upload",
+          "url": "https://github.com/RahulChandra99/unreal-cpp-combat-GAS/commit/760025990eb485b59ea810c19e01ddccae7ad261",
+          "at": "2026-09-07T20:39:53Z"
+        }
+      ]
+    },
+    {
+      "key": "unreal-cpp-interaction-weapon-stealth-combat-ai-system@2026-09-07",
+      "repo": {
+        "name": "unreal-cpp-interaction-weapon-stealth-combat-ai-system",
+        "url": "https://github.com/RahulChandra99/unreal-cpp-interaction-weapon-stealth-combat-ai-system",
+        "description": "c++ based weapon & interactions system",
+        "language": "C++",
+        "stars": 4,
+        "pushed": "2026-09-07T20:38:18Z"
+      },
+      "date": "2026-09-07",
+      "latest": "2026-09-07T20:38:16Z",
+      "commits": [
+        {
+          "sha": "7ec91b9",
+          "subject": "Add files via upload",
+          "url": "https://github.com/RahulChandra99/unreal-cpp-interaction-weapon-stealth-combat-ai-system/commit/7ec91b985972b4f28fb3517249b77bd2a06b3944",
+          "at": "2026-09-07T20:38:16Z"
+        }
+      ]
+    }
+  ]
+}
