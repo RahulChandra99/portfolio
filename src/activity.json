@@ -1,6 +1,14 @@
 {
-  "synced": "2026-11-12T09:21:19.052Z",
+  "synced": "2026-11-12T09:25:59.076Z",
   "repos": [
+    {
+      "name": "portfolio",
+      "url": "https://github.com/RahulChandra99/portfolio",
+      "description": "Source for my portfolio site. Game programming work, experience, and a Lab of side projects that fills itself from GitHub.",
+      "language": "JavaScript",
+      "stars": 0,
+      "pushed": "2026-11-12T09:24:28Z"
+    },
     {
       "name": "chrome-extensions",
       "url": "https://github.com/RahulChandra99/chrome-extensions",
@@ -8,14 +16,6 @@
       "language": "JavaScript",
       "stars": 0,
       "pushed": "2026-11-11T22:12:45Z"
-    },
-    {
-      "name": "portfolio",
-      "url": "https://github.com/RahulChandra99/portfolio",
-      "description": "Source for my portfolio site. Game programming work, experience, and a Lab of side projects that fills itself from GitHub.",
-      "language": "JavaScript",
-      "stars": 0,
-      "pushed": "2026-11-11T11:47:09Z"
     },
     {
       "name": "custom-editor-tools-unity",
@@ -67,6 +67,27 @@
     }
   ],
   "days": [
+    {
+      "key": "portfolio@2026-11-12",
+      "repo": {
+        "name": "portfolio",
+        "url": "https://github.com/RahulChandra99/portfolio",
+        "description": "Source for my portfolio site. Game programming work, experience, and a Lab of side projects that fills itself from GitHub.",
+        "language": "JavaScript",
+        "stars": 0,
+        "pushed": "2026-11-12T09:24:28Z"
+      },
+      "date": "2026-11-12",
+      "latest": "2026-11-12T09:24:26Z",
+      "commits": [
+        {
+          "sha": "2320961",
+          "subject": "Add a dev journal page with posts and GitHub commits",
+          "url": "https://github.com/RahulChandra99/portfolio/commit/23209619214b766100e7b44438860775c8df7e0c",
+          "at": "2026-11-12T09:24:26Z"
+        }
+      ]
+    },
     {
       "key": "chrome-extensions@2026-11-11",
       "repo": {
@@ -138,7 +159,7 @@
         "description": "Source for my portfolio site. Game programming work, experience, and a Lab of side projects that fills itself from GitHub.",
         "language": "JavaScript",
         "stars": 0,
-        "pushed": "2026-11-11T11:47:09Z"
+        "pushed": "2026-11-12T09:24:28Z"
       },
       "date": "2026-11-11",
       "latest": "2026-11-11T11:29:07Z",
@@ -154,132 +175,6 @@
           "subject": "Portfolio site with Lab section synced from GitHub",
           "url": "https://github.com/RahulChandra99/portfolio/commit/d67c7cc6a1af4de509537a658722a48639da9b08",
           "at": "2026-11-11T11:20:56Z"
-        }
-      ]
-    },
-    {
-      "key": "custom-editor-tools-unity@2026-09-07",
-      "repo": {
-        "name": "custom-editor-tools-unity",
-        "url": "https://github.com/RahulChandra99/custom-editor-tools-unity",
-        "description": "collection of custom editor tools that can be used in unity projects",
-        "language": "C#",
-        "stars": 2,
-        "pushed": "2026-09-07T20:56:47Z"
-      },
-      "date": "2026-09-07",
-      "latest": "2026-09-07T20:56:46Z",
-      "commits": [
-        {
-          "sha": "522e210",
-          "subject": "Add files via upload",
-          "url": "https://github.com/RahulChandra99/custom-editor-tools-unity/commit/522e21081eced4dcc6ef1ff4205446e96d6aff7c",
-          "at": "2026-09-07T20:56:46Z"
-        }
-      ]
-    },
-    {
-      "key": "unreal-automation-extension-python-qt@2026-09-07",
-      "repo": {
-        "name": "unreal-automation-extension-python-qt",
-        "url": "https://github.com/RahulChandra99/unreal-automation-extension-python-qt",
-        "description": "bournemouth university assignment : python based unreal engine editor tool",
-        "language": "Python",
-        "stars": 2,
-        "pushed": "2026-09-07T20:55:24Z"
-      },
-      "date": "2026-09-07",
-      "latest": "2026-09-07T20:55:23Z",
-      "commits": [
-        {
-          "sha": "edf645c",
-          "subject": "Add files via upload",
-          "url": "https://github.com/RahulChandra99/unreal-automation-extension-python-qt/commit/edf645cf666748c1c99e0266fe430c8cfc6362aa",
-          "at": "2026-09-07T20:55:23Z"
-        }
-      ]
-    },
-    {
-      "key": "procedural-maze-generator-cpp@2026-09-07",
-      "repo": {
-        "name": "procedural-maze-generator-cpp",
-        "url": "https://github.com/RahulChandra99/procedural-maze-generator-cpp",
-        "description": "bournemouth university assignment : procedural maze generation using cpp and qt",
-        "language": "C++",
-        "stars": 1,
-        "pushed": "2026-09-07T20:48:21Z"
-      },
-      "date": "2026-09-07",
-      "latest": "2026-09-07T20:48:20Z",
-      "commits": [
-        {
-          "sha": "75f6996",
-          "subject": "Add files via upload",
-          "url": "https://github.com/RahulChandra99/procedural-maze-generator-cpp/commit/75f699610d32d78f343f798f155a2915c2aeed17",
-          "at": "2026-09-07T20:48:20Z"
-        }
-      ]
-    },
-    {
-      "key": "unreal-cpp-multiplayer-custom-fps@2026-09-07",
-      "repo": {
-        "name": "unreal-cpp-multiplayer-custom-fps",
-        "url": "https://github.com/RahulChandra99/unreal-cpp-multiplayer-custom-fps",
-        "description": "c++ based multiplayer fps game with steam sessions integrated",
-        "language": "C++",
-        "stars": 2,
-        "pushed": "2026-09-07T20:41:09Z"
-      },
-      "date": "2026-09-07",
-      "latest": "2026-09-07T20:41:08Z",
-      "commits": [
-        {
-          "sha": "6492408",
-          "subject": "Add files via upload",
-          "url": "https://github.com/RahulChandra99/unreal-cpp-multiplayer-custom-fps/commit/64924089c67923378cc0bd5f7e18ccec99994eed",
-          "at": "2026-09-07T20:41:08Z"
-        }
-      ]
-    },
-    {
-      "key": "unreal-cpp-combat-GAS@2026-09-07",
-      "repo": {
-        "name": "unreal-cpp-combat-GAS",
-        "url": "https://github.com/RahulChandra99/unreal-cpp-combat-GAS",
-        "description": "c++ gameplay mechanics with GAS in UE5",
-        "language": "C++",
-        "stars": 3,
-        "pushed": "2026-09-07T20:39:55Z"
-      },
-      "date": "2026-09-07",
-      "latest": "2026-09-07T20:39:53Z",
-      "commits": [
-        {
-          "sha": "7600259",
-          "subject": "Add files via upload",
-          "url": "https://github.com/RahulChandra99/unreal-cpp-combat-GAS/commit/760025990eb485b59ea810c19e01ddccae7ad261",
-          "at": "2026-09-07T20:39:53Z"
-        }
-      ]
-    },
-    {
-      "key": "unreal-cpp-interaction-weapon-stealth-combat-ai-system@2026-09-07",
-      "repo": {
-        "name": "unreal-cpp-interaction-weapon-stealth-combat-ai-system",
-        "url": "https://github.com/RahulChandra99/unreal-cpp-interaction-weapon-stealth-combat-ai-system",
-        "description": "c++ based weapon & interactions system",
-        "language": "C++",
-        "stars": 4,
-        "pushed": "2026-09-07T20:38:18Z"
-      },
-      "date": "2026-09-07",
-      "latest": "2026-09-07T20:38:16Z",
-      "commits": [
-        {
-          "sha": "7ec91b9",
-          "subject": "Add files via upload",
-          "url": "https://github.com/RahulChandra99/unreal-cpp-interaction-weapon-stealth-combat-ai-system/commit/7ec91b985972b4f28fb3517249b77bd2a06b3944",
-          "at": "2026-09-07T20:38:16Z"
         }
       ]
     }
