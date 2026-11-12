@@ -18,9 +18,9 @@ const firstPara = body => (body.split(/\n\s*\n/).map(s => s.trim()).find(s => s 
   .replace(/^\d{1,2}:\d{2}(\s?[ap]m)?\s*[:\-–]\s*/i, '').replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/[*_`]/g, '').slice(0, 300)
 
 const items = posts.map(p => `    <item>
-      <title>${esc(p.title || 'A thought')}</title>
-      <link>${SITE}/blog/${p.slug}</link>
-      <guid>${SITE}/blog/${p.slug}</guid>
+      <title>${esc(p.title)}</title>
+      <link>${SITE}/dev-blog/${p.slug}</link>
+      <guid>${SITE}/dev-blog/${p.slug}</guid>
       <pubDate>${new Date(p.sortKey || Date.now()).toUTCString()}</pubDate>
       <category>${esc(p.type)}</category>
       <description>${esc(p.summary || firstPara(p.body))}</description>
@@ -29,9 +29,9 @@ const items = posts.map(p => `    <item>
 writeFileSync(`${root}/dist/rss.xml`, `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>Rahul Chandra's blog</title>
-    <link>${SITE}/blog</link>
-    <description>Dev updates, articles and thoughts on game programming</description>
+    <title>Rahul Chandra's dev blog</title>
+    <link>${SITE}/dev-blog</link>
+    <description>Dev updates and articles on game programming</description>
     <language>en</language>
 ${items}
   </channel>

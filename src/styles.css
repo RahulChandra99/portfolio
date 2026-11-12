@@ -794,7 +794,6 @@ h1, h2, h3 { font-weight: 500; line-height: 1.25; }
   background: rgba(255, 255, 255, 0.06);
 }
 .b-kind.is-article { color: var(--accent); background: rgba(var(--accent-rgb), 0.12); }
-.b-kind.is-thought { color: #c4b5fd; background: rgba(196, 181, 253, 0.1); }
 .b-kind.is-commits { color: var(--dim); background: none; border: 1px solid var(--border); padding: 1px 6px; }
 .b-author { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--muted); }
 .b-author img { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; }
@@ -893,9 +892,6 @@ h1, h2, h3 { font-weight: 500; line-height: 1.25; }
 .b-excerpt { color: var(--muted); font-size: 0.9rem; }
 .b-row .j-draft { justify-self: start; }
 .b-thumb img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); }
-.b-thought .j-body { font-size: 0.98rem; }
-.b-permalink { justify-self: start; font-size: 0.75rem; color: var(--dim); }
-.b-permalink:hover { color: var(--accent); }
 .b-commit-title { display: flex; align-items: center; gap: 8px; font-size: 0.92rem; color: var(--muted); }
 .b-commit-title a { color: var(--text); font-weight: 500; }
 .b-commit-title a:hover { color: var(--accent); }
@@ -916,7 +912,6 @@ h1, h2, h3 { font-weight: 500; line-height: 1.25; }
 .b-prose { font-size: 1.02rem; line-height: 1.75; max-width: 70ch; }
 .b-prose h2 { font-size: 1.35rem; font-weight: 500; margin-top: 1.8em; }
 .b-prose h3 { font-size: 1.1rem; font-weight: 500; margin-top: 1.5em; }
-.b-prose.is-big { font-size: 1.25rem; line-height: 1.6; color: var(--text); }
 .b-aside {
   position: sticky;
   top: calc(var(--header-h) + 24px);

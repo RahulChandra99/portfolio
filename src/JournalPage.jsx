@@ -12,12 +12,11 @@ const fmt = (f, iso) => f.format(new Date(`${iso.slice(0, 10)}T12:00:00`))
 // GitHub's colours for the languages that show up in my repos
 const LANG = { 'C++': '#f34b7d', 'C#': '#178600', Python: '#3572A5', JavaScript: '#f1e05a', TypeScript: '#3178c6', HTML: '#e34c26', CSS: '#563d7c', ShaderLab: '#222c37' }
 
-const KIND = { article: 'Article', update: 'Dev update', thought: 'Thought', commits: 'Commits' }
+const KIND = { article: 'Article', update: 'Dev update', commits: 'GitHub commits' }
 const TABS = [
   { id: 'all', label: 'All' },
   { id: 'article', label: 'Articles' },
-  { id: 'update', label: 'Dev updates' },
-  { id: 'thought', label: 'Thoughts' },
+  { id: 'update', label: 'GitHub commits' },
 ]
 const PAGE = 15
 
@@ -141,7 +140,7 @@ function Mood({ post }) {
 }
 
 function Featured({ post }) {
-  const href = `/blog/${post.slug}`
+  const href = `/dev-blog/${post.slug}`
   return (
     <Link href={href} className="b-featured">
       <Cover post={post} />
@@ -156,20 +155,7 @@ function Featured({ post }) {
 }
 
 function PostRow({ post }) {
-  const href = `/blog/${post.slug}`
-  // Thoughts are short, so they read in place instead of linking out
-  if (post.type === 'thought') {
-    const { html } = renderBody(post.body)
-    return (
-      <article className="b-row b-thought">
-        <Meta kind="thought" date={post.date} />
-        {post.title && <h3><Link href={href}>{post.title}</Link></h3>}
-        <div className="j-body" dangerouslySetInnerHTML={{ __html: html }} />
-        <Mood post={post} />
-        <Link href={href} className="b-permalink">Permalink</Link>
-      </article>
-    )
-  }
+  const href = `/dev-blog/${post.slug}`
   return (
     <article className={`b-row ${post.cover ? 'has-cover' : ''}`}>
       <div className="b-row-text">
@@ -243,7 +229,7 @@ function Index({ posts, activity, params }) {
   }, [posts, activity, tab, tag, q, featured])
 
   const counts = useMemo(() => {
-    const c = { all: posts.length + activity.days.length, article: 0, update: activity.days.length, thought: 0 }
+    const c = { all: posts.length + activity.days.length, article: 0, update: activity.days.length }
     for (const p of posts) c[p.type]++
     return c
   }, [posts, activity])
@@ -251,8 +237,8 @@ function Index({ posts, activity, params }) {
   return (
     <>
       <header className="b-head">
-        <p className="b-eyebrow">Blog</p>
-        <h1>Dev updates, articles and thoughts</h1>
+        <p className="b-eyebrow">Dev blog</p>
+        <h1>Articles and GitHub commits</h1>
         <p>
           What I'm building in Unreal, Unity and C++, what broke along the way and how I fixed it.
           Commits from GitHub land here on their own. <a href="/rss.xml" target="_blank">RSS feed</a>
@@ -277,7 +263,7 @@ function Index({ posts, activity, params }) {
       </div>
 
       {tag && (
-        <p className="j-active-filter">#{tag} <Link href="/blog" className="j-clear">Clear</Link></p>
+        <p className="j-active-filter">#{tag} <Link href="/dev-blog" className="j-clear">Clear</Link></p>
       )}
 
       <div className="b-list">
@@ -305,9 +291,9 @@ function Single({ post, posts, repos }) {
   return (
     <article className={`b-post is-${post.type}`}>
       <nav className="b-crumbs" aria-label="Breadcrumb">
-        <Link href="/blog">Blog</Link>
+        <Link href="/dev-blog">Dev blog</Link>
         <span aria-hidden="true">/</span>
-        <Link href={`/blog?type=${post.type}`}>{KIND[post.type]}s</Link>
+        <Link href={`/dev-blog?type=${post.type}`}>{KIND[post.type]}s</Link>
       </nav>
       {post.title && <h1>{post.title}</h1>}
       <div className="b-post-meta">
@@ -319,7 +305,7 @@ function Single({ post, posts, repos }) {
 
       <div className={`b-post-grid ${toc.length >= 2 ? 'has-toc' : ''}`}>
         <div>
-          <div className={`j-body b-prose ${post.type === 'thought' && !post.title ? 'is-big' : ''}`} dangerouslySetInnerHTML={{ __html: html }} />
+          <div className="j-body b-prose" dangerouslySetInnerHTML={{ __html: html }} />
           {(post.building || post.mood || post.music) && (
             <footer className="j-meta">
               {post.building && <span><b>Currently building:</b>{post.building}</span>}
@@ -344,7 +330,7 @@ function Single({ post, posts, repos }) {
           {post.tags.length > 0 && (
             <div>
               <h3>Tags</h3>
-              <p className="j-tags">{post.tags.map(t => <Link key={t} href={`/blog?tag=${encodeURIComponent(t)}`}>#{t}</Link>)}</p>
+              <p className="j-tags">{post.tags.map(t => <Link key={t} href={`/dev-blog?tag=${encodeURIComponent(t)}`}>#{t}</Link>)}</p>
             </div>
           )}
           <button className="b-copy" onClick={copy}>{copied ? 'Link copied' : 'Copy link'}</button>
@@ -352,8 +338,8 @@ function Single({ post, posts, repos }) {
       </div>
 
       <nav className="j-pager" aria-label="More posts">
-        {older ? <Link href={`/blog/${older.slug}`}><span>Older</span>{older.title || excerpt(older, 60)}</Link> : <span />}
-        {newer ? <Link href={`/blog/${newer.slug}`} className="next"><span>Newer</span>{newer.title || excerpt(newer, 60)}</Link> : <span />}
+        {older ? <Link href={`/dev-blog/${older.slug}`}><span>Older</span>{older.title}</Link> : <span />}
+        {newer ? <Link href={`/dev-blog/${newer.slug}`} className="next"><span>Newer</span>{newer.title}</Link> : <span />}
       </nav>
     </article>
   )
@@ -362,12 +348,12 @@ function Single({ post, posts, repos }) {
 export default function Journal() {
   const { posts, activity } = useJournal()
   const { path, params } = useRoute()
-  const slug = decodeURIComponent(path.replace(/^\/blog\/?/, '').replace(/\/$/, ''))
+  const slug = decodeURIComponent(path.replace(/^\/dev-blog\/?/, '').replace(/\/$/, ''))
   const single = slug ? posts.find(p => p.slug === slug) : null
   const repos = useMemo(() => Object.fromEntries(activity.repos.map(r => [r.name, r])), [activity])
 
   useEffect(() => {
-    document.title = single ? `${single.title || 'A thought'} · Rahul Chandra` : 'Blog · Rahul Chandra'
+    document.title = single ? `${single.title} · Rahul Chandra` : 'Dev blog · Rahul Chandra'
   }, [single])
 
   return (
@@ -377,7 +363,7 @@ export default function Journal() {
       ) : slug ? (
         <div className="j-empty">
           <p>That post doesn't exist, or it hasn't synced yet.</p>
-          <Link href="/blog" className="j-back">Back to the blog</Link>
+          <Link href="/dev-blog" className="j-back">Back to the dev blog</Link>
         </div>
       ) : (
         <Index posts={posts} activity={activity} params={params} />

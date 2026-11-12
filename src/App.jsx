@@ -7,7 +7,7 @@ import './styles.css'
 
 // Separate chunk, so the Markdown parser only loads on the blog
 const Journal = lazy(() => import('./JournalPage'))
-const onJournal = window.location.pathname.startsWith('/blog')
+const onJournal = window.location.pathname.startsWith('/dev-blog')
 import { profile, featured, experience, projects, filters } from './data'
 
 const nav = [
@@ -52,7 +52,7 @@ function Header() {
         </button>
         <div id="nav-links" className={`nav-links ${open ? 'open' : ''}`} onClick={() => setOpen(false)}>
           {nav.map(n => <a key={n.href} href={navHref(n.href)} target="_self">{n.label}</a>)}
-          <a href="/blog" target="_self" className={onJournal ? 'active' : ''} aria-current={onJournal ? 'page' : undefined}>Blog</a>
+          <a href="/dev-blog" target="_self" className={onJournal ? 'active' : ''} aria-current={onJournal ? 'page' : undefined}>Dev blog</a>
           <ExternalLink href={profile.links.resume}>Resume</ExternalLink>
         </div>
       </nav>
