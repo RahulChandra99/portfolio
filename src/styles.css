@@ -897,9 +897,6 @@ h1, h2, h3 { font-weight: 500; line-height: 1.25; }
 .b-commit-title a:hover { color: var(--accent); }
 .b-load { margin: 28px auto 0; display: block; }
 
-/* LiveJournal-style "current mood" lines */
-.b-lj { display: grid; gap: 2px; font-size: 0.8rem; color: var(--muted); }
-.b-lj b { font-weight: 500; color: var(--dim); margin-right: 6px; }
 
 /* Single post */
 .b-crumbs { display: flex; gap: 8px; font-size: 0.82rem; color: var(--dim); margin-bottom: 20px; }

@@ -12,11 +12,10 @@ const fmt = (f, iso) => f.format(new Date(`${iso.slice(0, 10)}T12:00:00`))
 // GitHub's colours for the languages that show up in my repos
 const LANG = { 'C++': '#f34b7d', 'C#': '#178600', Python: '#3572A5', JavaScript: '#f1e05a', TypeScript: '#3178c6', HTML: '#e34c26', CSS: '#563d7c', ShaderLab: '#222c37' }
 
-const KIND = { article: 'Article', update: 'Dev update', commits: 'GitHub commits' }
+const KIND = { article: 'Article', commits: 'GitHub commits' }
 const TABS = [
-  { id: 'all', label: 'All' },
   { id: 'article', label: 'Articles' },
-  { id: 'update', label: 'GitHub commits' },
+  { id: 'commits', label: 'GitHub commits' },
 ]
 const PAGE = 15
 
@@ -127,18 +126,6 @@ function Author({ date }) {
   )
 }
 
-// The LiveJournal touch: "Current mood" and "Current music" under an entry
-function Mood({ post }) {
-  if (!post.mood && !post.music && !post.building) return null
-  return (
-    <p className="b-lj">
-      {post.building && <span><b>Currently building:</b>{post.building}</span>}
-      {post.mood && <span><b>Current mood:</b>{post.mood}</span>}
-      {post.music && <span><b>Current music:</b>{post.music}</span>}
-    </p>
-  )
-}
-
 function Featured({ post }) {
   const href = `/dev-blog/${post.slug}`
   return (
@@ -162,7 +149,6 @@ function PostRow({ post }) {
         <Meta kind={post.type} date={post.date} minutes={post.minutes} />
         <h3><Link href={href}>{post.title}</Link></h3>
         <p className="b-excerpt">{excerpt(post)}</p>
-        {post.type === 'update' && <Mood post={post} />}
         {post.draft && <span className="j-draft">draft</span>}
       </div>
       {post.cover && <Link href={href} className="b-thumb" tabIndex={-1} aria-hidden="true"><img src={imageUrl(post.cover)} alt="" loading="lazy" /></Link>}
@@ -201,25 +187,24 @@ function CommitRow({ day }) {
 
 function Index({ posts, activity, params }) {
   const tag = params.get('tag')
-  const [tab, setTab] = useState(() => (TABS.some(t => t.id === params.get('type')) ? params.get('type') : 'all'))
+  const [tab, setTab] = useState(() => (TABS.some(t => t.id === params.get('type')) ? params.get('type') : 'article'))
   const [query, setQuery] = useState('')
   const [shown, setShown] = useState(PAGE)
   useEffect(() => setShown(PAGE), [tab, query, tag])
+  useEffect(() => { if (tag) setTab('article') }, [tag])
 
   const q = query.trim().toLowerCase()
-  const featured = !q && !tag && (tab === 'all' || tab === 'article') ? posts.find(p => p.type === 'article') : null
+  const featured = !q && !tag && tab === 'article' ? posts[0] : null
 
   const items = useMemo(() => {
     const list = []
-    for (const p of posts) {
+    if (tab === 'article') for (const p of posts) {
       if (p === featured) continue
-      if (tab !== 'all' && p.type !== tab) continue
       if (tag && !p.tags.includes(tag)) continue
       if (q && !`${p.title} ${p.summary} ${p.body} ${p.tags.join(' ')} ${p.category}`.toLowerCase().includes(q)) continue
       list.push({ key: p.slug, at: p.date.replace(' ', 'T'), post: p })
     }
-    // Commits count as dev updates
-    if ((tab === 'all' || tab === 'update') && !tag) {
+    if (tab === 'commits') {
       for (const d of activity.days) {
         if (q && !`${d.repo.name} ${d.commits.map(c => c.subject).join(' ')}`.toLowerCase().includes(q)) continue
         list.push({ key: d.key, at: d.latest, day: d })
@@ -228,11 +213,7 @@ function Index({ posts, activity, params }) {
     return list.sort((a, b) => (a.at < b.at ? 1 : -1))
   }, [posts, activity, tab, tag, q, featured])
 
-  const counts = useMemo(() => {
-    const c = { all: posts.length + activity.days.length, article: 0, update: activity.days.length }
-    for (const p of posts) c[p.type]++
-    return c
-  }, [posts, activity])
+  const counts = { article: posts.length, commits: activity.days.length }
 
   return (
     <>
@@ -241,7 +222,7 @@ function Index({ posts, activity, params }) {
         <h1>Articles and GitHub commits</h1>
         <p>
           What I'm building in Unreal, Unity and C++, what broke along the way and how I fixed it.
-          Commits from GitHub land here on their own. <a href="/rss.xml" target="_blank">RSS feed</a>
+          Commits from GitHub land here on their own.
         </p>
       </header>
 
@@ -293,7 +274,7 @@ function Single({ post, posts, repos }) {
       <nav className="b-crumbs" aria-label="Breadcrumb">
         <Link href="/dev-blog">Dev blog</Link>
         <span aria-hidden="true">/</span>
-        <Link href={`/dev-blog?type=${post.type}`}>{KIND[post.type]}s</Link>
+        <Link href="/dev-blog">Articles</Link>
       </nav>
       {post.title && <h1>{post.title}</h1>}
       <div className="b-post-meta">

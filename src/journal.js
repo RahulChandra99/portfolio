@@ -16,7 +16,6 @@ const ACTIVITY_REPOS = 8
 
 // ---- Posts ----
 
-export const TYPES = ['article', 'update']
 
 // Frontmatter between --- lines: `key: value`, with [a, b] for lists
 export function parsePost(name, text) {
@@ -48,8 +47,8 @@ export function parsePost(name, text) {
     music: meta.music || '',
     building: meta.building || '',
     draft: meta.draft === 'true',
-    // article: long-form with a cover and summary. update: dev progress (the default)
-    type: TYPES.includes(meta.type) ? meta.type : 'update',
+    // Every hand-written post is an article; commits are the other half of the blog
+    type: 'article',
     summary: meta.summary || '',
     cover: meta.cover || '',
     category: meta.category || '',

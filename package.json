@@ -8,8 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "prebuild": "node scripts/sync-lab.mjs",
-    "sync-lab": "node scripts/sync-lab.mjs",
-    "postbuild": "node scripts/rss.mjs"
+    "sync-lab": "node scripts/sync-lab.mjs"
   },
   "dependencies": {
     "marked": "^12.0.2",
