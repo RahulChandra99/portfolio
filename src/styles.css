@@ -760,20 +760,8 @@ h1, h2, h3 { font-weight: 500; line-height: 1.25; }
 }
 
 /* Index header */
-.b-head { margin-bottom: 36px; }
-.b-eyebrow {
-  font-family: var(--font-mono);
-  font-weight: 400;
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 12px;
-}
-.b-head > p { color: var(--muted); margin-top: 10px; max-width: 66ch; }
-.b-head > p:first-of-type { color: var(--text); font-size: 1.15rem; }
-.b-head a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--border-strong); }
-.b-head a:hover { color: var(--accent); }
+.b-head { margin-bottom: 24px; }
+.b-head h1 { font-size: 1.6rem; font-weight: 500; }
 
 /* Shared bits */
 .b-meta {

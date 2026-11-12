@@ -190,15 +190,7 @@ function Index({ posts, activity, params }) {
   return (
     <>
       <header className="b-head">
-        <h1 className="b-eyebrow">Dev blog</h1>
-        <p>
-          What I'm building in Unreal, Unity and C++, what broke along the way and how I fixed it.
-        </p>
-        <p>
-          I use AI for the boring 70% of the work, like boilerplate, editor tools and scripts. The time it saves
-          goes into the hard 30%, things like replication, performance on real hardware and game feel. AI
-          makes me faster, not right. So when it gets something wrong, I write up how I caught it and how I fixed it.
-        </p>
+        <h1>Dev blog</h1>
       </header>
 
       <div className="b-toolbar">
