@@ -5,9 +5,9 @@ import GitHubActivity from './components/GitHubActivity'
 import useSyncedProjects from './useSyncedProjects'
 import './styles.css'
 
-// Separate chunk, so the Markdown parser only loads on the journal
+// Separate chunk, so the Markdown parser only loads on the blog
 const Journal = lazy(() => import('./JournalPage'))
-const onJournal = window.location.pathname.startsWith('/journal')
+const onJournal = window.location.pathname.startsWith('/blog')
 import { profile, featured, experience, projects, filters } from './data'
 
 const nav = [
@@ -16,7 +16,7 @@ const nav = [
   { href: '#work', label: 'Experience' },
   { href: '#contact', label: 'Connect' },
 ]
-// From the journal, section links go back to the home page
+// From the blog, section links go back to the home page
 const navHref = href => (onJournal ? `/${href}` : href)
 
 const categoryLabel = { unreal: 'Unreal', unity: 'Unity', tools: 'Tools', extensions: 'Chrome Extensions', apps: 'Apps', games: 'Games' }
@@ -52,7 +52,7 @@ function Header() {
         </button>
         <div id="nav-links" className={`nav-links ${open ? 'open' : ''}`} onClick={() => setOpen(false)}>
           {nav.map(n => <a key={n.href} href={navHref(n.href)} target="_self">{n.label}</a>)}
-          <a href="/journal" target="_self" className={onJournal ? 'active' : ''} aria-current={onJournal ? 'page' : undefined}>Journal</a>
+          <a href="/blog" target="_self" className={onJournal ? 'active' : ''} aria-current={onJournal ? 'page' : undefined}>Blog</a>
           <ExternalLink href={profile.links.resume}>Resume</ExternalLink>
         </div>
       </nav>

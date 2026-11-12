@@ -1,5 +1,5 @@
 // Runs before every build. Snapshots the GitHub-synced projects into src/lab.json and the
-// journal's commit activity into src/activity.json, so both render instantly and still work
+// blog's commit activity into src/activity.json, so both render instantly and still work
 // if GitHub is down. If GitHub can't be reached, the last snapshot is kept.
 import { writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
@@ -22,5 +22,5 @@ try {
   save('activity.json', activity)
   console.log(`Synced ${activity.days.length} days of commits from GitHub`)
 } catch (e) {
-  console.warn(`Couldn't reach GitHub for journal activity (${e.message}). Keeping the last snapshot`)
+  console.warn(`Couldn't reach GitHub for blog activity (${e.message}). Keeping the last snapshot`)
 }

@@ -42,7 +42,7 @@ function RepoChip({ repo }) {
 
 function Post({ post, repos, full }) {
   const html = useMemo(() => renderBody(post.body), [post.body])
-  const href = `/journal/${post.slug}`
+  const href = `/blog/${post.slug}`
   const linked = post.repos.map(name => repos[name] || { name, url: `https://github.com/${profile.links.github.split('/').pop()}/${name}` })
   return (
     <article className={`j-entry j-post ${full ? 'is-full' : ''}`}>
@@ -65,7 +65,7 @@ function Post({ post, repos, full }) {
           {post.tags.length > 0 && (
             <span className="j-tags">
               {post.tags.map(t => (
-                <a key={t} href={`/journal?tag=${encodeURIComponent(t)}`} target="_self" onClick={e => navigate(e, `/journal?tag=${encodeURIComponent(t)}`)}>#{t}</a>
+                <a key={t} href={`/blog?tag=${encodeURIComponent(t)}`} target="_self" onClick={e => navigate(e, `/blog?tag=${encodeURIComponent(t)}`)}>#{t}</a>
               ))}
             </span>
           )}
@@ -127,7 +127,7 @@ export default function Journal() {
   const { posts, activity } = useJournal()
   const { path, params } = useRoute()
   const [filter, setFilter] = useState('all')
-  const slug = decodeURIComponent(path.replace(/^\/journal\/?/, '').replace(/\/$/, ''))
+  const slug = decodeURIComponent(path.replace(/^\/blog\/?/, '').replace(/\/$/, ''))
   const tag = params.get('tag')
   const month = params.get('month')
 
@@ -136,7 +136,7 @@ export default function Journal() {
 
   useEffect(() => {
     const p = slug && posts.find(x => x.slug === slug)
-    document.title = p ? `${p.title} · Rahul's dev journal` : "Rahul's dev journal"
+    document.title = p ? `${p.title} · Rahul's blog` : "Rahul's blog"
   }, [slug, posts])
 
   // Posts and commit days, newest first, grouped under a date heading
@@ -190,7 +190,7 @@ export default function Journal() {
             <img src={profile.avatar} alt="" width="56" height="56" />
             <div>
               <p className="j-name">{profile.name}</p>
-              <p className="j-handle">dev journal · {profile.location}</p>
+              <p className="j-handle">blog · {profile.location}</p>
             </div>
           </div>
           {latest && (latest.building || latest.mood) && (
@@ -212,8 +212,8 @@ export default function Journal() {
               <h3>Tags</h3>
               <p className="j-tag-cloud">
                 {tags.map(([t, n]) => (
-                  <a key={t} href={`/journal?tag=${encodeURIComponent(t)}`} target="_self" className={t === tag ? 'active' : ''}
-                    onClick={e => navigate(e, `/journal?tag=${encodeURIComponent(t)}`)}>#{t} <span>{n}</span></a>
+                  <a key={t} href={`/blog?tag=${encodeURIComponent(t)}`} target="_self" className={t === tag ? 'active' : ''}
+                    onClick={e => navigate(e, `/blog?tag=${encodeURIComponent(t)}`)}>#{t} <span>{n}</span></a>
                 ))}
               </p>
             </div>
@@ -224,7 +224,7 @@ export default function Journal() {
               <ul className="j-archive">
                 {months.map(([m, n]) => (
                   <li key={m}>
-                    {link(`/journal?month=${m}`, <>{MONTH.format(new Date(`${m}-15T12:00:00`))} <span>{n}</span></>, m === month ? 'active' : '')}
+                    {link(`/blog?month=${m}`, <>{MONTH.format(new Date(`${m}-15T12:00:00`))} <span>{n}</span></>, m === month ? 'active' : '')}
                   </li>
                 ))}
               </ul>
@@ -235,23 +235,23 @@ export default function Journal() {
         <div className="j-main">
           {single ? (
             <>
-              {link('/journal', '← All entries', 'j-back')}
+              {link('/blog', '← All entries', 'j-back')}
               <p className="j-day">{dayLabel(single.date)}</p>
               <Post post={single} repos={repos} full />
               <nav className="j-pager" aria-label="More entries">
-                {posts[index + 1] ? link(`/journal/${posts[index + 1].slug}`, <><span>Older</span>{posts[index + 1].title}</>) : <span />}
-                {posts[index - 1] ? link(`/journal/${posts[index - 1].slug}`, <><span>Newer</span>{posts[index - 1].title}</>, 'next') : <span />}
+                {posts[index + 1] ? link(`/blog/${posts[index + 1].slug}`, <><span>Older</span>{posts[index + 1].title}</>) : <span />}
+                {posts[index - 1] ? link(`/blog/${posts[index - 1].slug}`, <><span>Newer</span>{posts[index - 1].title}</>, 'next') : <span />}
               </nav>
             </>
           ) : slug ? (
             <div className="j-empty">
               <p>That entry doesn't exist, or it hasn't synced yet.</p>
-              {link('/journal', '← All entries', 'j-back')}
+              {link('/blog', '← All entries', 'j-back')}
             </div>
           ) : (
             <>
               <header className="j-top">
-                <h1>Dev journal</h1>
+                <h1>Blog</h1>
                 <p>Notes, ideas and progress as I build. Commits from GitHub show up here on their own.</p>
               </header>
               <div className="j-toolbar">
@@ -265,7 +265,7 @@ export default function Journal() {
                 {(tag || month) && (
                   <p className="j-active-filter">
                     {tag ? `#${tag}` : MONTH.format(new Date(`${month}-15T12:00:00`))}
-                    {link('/journal', 'Clear', 'j-clear')}
+                    {link('/blog', 'Clear', 'j-clear')}
                   </p>
                 )}
               </div>

@@ -16,11 +16,11 @@ npm run dev
 - **Profile, featured game, experience and Projects:** `src/data.js`
 - **Chrome extensions and other synced projects** fill themselves. Any public repo of mine tagged `portfolio` with a `portfolio.json` at its root shows up in Projects under its category. `npm run build` saves a snapshot to `src/lab.json`, and the page refreshes it from GitHub on load. The format is in `src/lab.js`.
 
-## Journal
+## Blog
 
-The journal at `/journal` mixes my posts with commits from GitHub.
+The blog at `/blog` mixes my posts with commits from GitHub.
 
-- **Posts** are Markdown files in `journal/`, named `YYYY-MM-DD-some-slug.md`. Push one and it shows up on the live site within about 15 minutes, no redeploy needed.
+- **Posts** are Markdown files in `blog/`, named `YYYY-MM-DD-some-slug.md`. Push one and it shows up on the live site within about 15 minutes, no redeploy needed.
 - **Commits** from my recently pushed public repos fill in on their own, one entry per repo per day.
 
 A post looks like this. Everything in the frontmatter is optional:

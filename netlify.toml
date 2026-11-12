@@ -5,13 +5,24 @@
 [build.environment]
   NODE_VERSION = "20"
 
-# The journal lives at /journal and /journal/<post>; the app routes it client-side
+# The blog lives at /blog and /blog/<post>; the app routes it client-side
 [[redirects]]
-  from = "/journal/*"
+  from = "/blog/*"
   to = "/index.html"
   status = 200
 
 [[redirects]]
-  from = "/journal"
+  from = "/blog"
   to = "/index.html"
   status = 200
+
+# Old journal links
+[[redirects]]
+  from = "/journal/*"
+  to = "/blog/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/journal"
+  to = "/blog"
+  status = 301

@@ -1,13 +1,13 @@
 {
-  "synced": "2026-11-12T09:25:59.076Z",
+  "synced": "2026-11-12T11:49:22.196Z",
   "repos": [
     {
       "name": "portfolio",
       "url": "https://github.com/RahulChandra99/portfolio",
-      "description": "Source for my portfolio site. Game programming work, experience, and a Lab of side projects that fills itself from GitHub.",
+      "description": "Source for my portfolio site. ",
       "language": "JavaScript",
       "stars": 0,
-      "pushed": "2026-11-12T09:24:28Z"
+      "pushed": "2026-11-12T10:01:15Z"
     },
     {
       "name": "chrome-extensions",
@@ -72,14 +72,20 @@
       "repo": {
         "name": "portfolio",
         "url": "https://github.com/RahulChandra99/portfolio",
-        "description": "Source for my portfolio site. Game programming work, experience, and a Lab of side projects that fills itself from GitHub.",
+        "description": "Source for my portfolio site. ",
         "language": "JavaScript",
         "stars": 0,
-        "pushed": "2026-11-12T09:24:28Z"
+        "pushed": "2026-11-12T10:01:15Z"
       },
       "date": "2026-11-12",
-      "latest": "2026-11-12T09:24:26Z",
+      "latest": "2026-11-12T10:01:14Z",
       "commits": [
+        {
+          "sha": "7c35b6f",
+          "subject": "Merge GitHub and Terminal into the Connect section",
+          "url": "https://github.com/RahulChandra99/portfolio/commit/7c35b6fa2e76caeaf0107261c578390bc36ee184",
+          "at": "2026-11-12T10:01:14Z"
+        },
         {
           "sha": "2320961",
           "subject": "Add a dev journal page with posts and GitHub commits",
@@ -156,10 +162,10 @@
       "repo": {
         "name": "portfolio",
         "url": "https://github.com/RahulChandra99/portfolio",
-        "description": "Source for my portfolio site. Game programming work, experience, and a Lab of side projects that fills itself from GitHub.",
+        "description": "Source for my portfolio site. ",
         "language": "JavaScript",
         "stars": 0,
-        "pushed": "2026-11-12T09:24:28Z"
+        "pushed": "2026-11-12T10:01:15Z"
       },
       "date": "2026-11-11",
       "latest": "2026-11-11T11:29:07Z",

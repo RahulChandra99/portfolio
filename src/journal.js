@@ -1,9 +1,9 @@
-// Dev journal: hand-written posts from journal/*.md plus commit activity pulled from GitHub.
+// Blog: hand-written posts from blog/*.md plus commit activity pulled from GitHub.
 // Shared by the build script (Node) and the browser, like lab.js.
 import { GITHUB_USER } from './lab.js'
 
 export const JOURNAL_REPO = `${GITHUB_USER}/portfolio`
-export const JOURNAL_DIR = 'journal'
+export const JOURNAL_DIR = 'blog'
 
 // Kept off the site entirely: no commits from these repos, and no commit that mentions them
 const PRIVATE = ['shred-log']
