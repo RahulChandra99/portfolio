@@ -18,7 +18,7 @@ npm run dev
 
 ## Dev blog
 
-The dev blog at `/dev-blog` has two tabs. **Articles** are the posts I write, and the newest one gets the big card at the top. **GitHub commits** fill in on their own from my recently pushed public repos. Lines in a post that start with a time ("9:40 pm: ...") turn into a log.
+The dev blog at `/dev-blog` has two tabs. **Articles** are the posts I write. **GitHub commits** fill in on their own from my recently pushed public repos. Lines in a post that start with a time ("9:40 pm: ...") turn into a log.
 
 Each post is a Markdown file in `blog/`, named `YYYY-MM-DD-some-slug.md`. Push one and it's on the live site within about 15 minutes, no redeploy. Images go in `blog/images/`. Everything in the frontmatter is optional, and `draft: true` keeps a post on my machine only.
 
