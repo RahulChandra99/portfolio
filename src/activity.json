@@ -1,85 +1,349 @@
 {
-  "synced": "2026-11-12T11:49:22.196Z",
+  "synced": "2026-11-14T11:37:29.802Z",
   "repos": [
-    {
-      "name": "portfolio",
-      "url": "https://github.com/RahulChandra99/portfolio",
-      "description": "Source for my portfolio site. ",
-      "language": "JavaScript",
-      "stars": 0,
-      "pushed": "2026-11-12T10:01:15Z"
-    },
-    {
-      "name": "chrome-extensions",
-      "url": "https://github.com/RahulChandra99/chrome-extensions",
-      "description": "Small Chrome extensions I build for my own workflow",
-      "language": "JavaScript",
-      "stars": 0,
-      "pushed": "2026-11-11T22:12:45Z"
-    },
-    {
-      "name": "custom-editor-tools-unity",
-      "url": "https://github.com/RahulChandra99/custom-editor-tools-unity",
-      "description": "collection of custom editor tools that can be used in unity projects",
-      "language": "C#",
-      "stars": 2,
-      "pushed": "2026-09-07T20:56:47Z"
-    },
-    {
-      "name": "unreal-automation-extension-python-qt",
-      "url": "https://github.com/RahulChandra99/unreal-automation-extension-python-qt",
-      "description": "bournemouth university assignment : python based unreal engine editor tool",
-      "language": "Python",
-      "stars": 2,
-      "pushed": "2026-09-07T20:55:24Z"
-    },
-    {
-      "name": "procedural-maze-generator-cpp",
-      "url": "https://github.com/RahulChandra99/procedural-maze-generator-cpp",
-      "description": "bournemouth university assignment : procedural maze generation using cpp and qt",
-      "language": "C++",
-      "stars": 1,
-      "pushed": "2026-09-07T20:48:21Z"
-    },
-    {
-      "name": "unreal-cpp-multiplayer-custom-fps",
-      "url": "https://github.com/RahulChandra99/unreal-cpp-multiplayer-custom-fps",
-      "description": "c++ based multiplayer fps game with steam sessions integrated",
-      "language": "C++",
-      "stars": 2,
-      "pushed": "2026-09-07T20:41:09Z"
-    },
     {
       "name": "unreal-cpp-combat-GAS",
       "url": "https://github.com/RahulChandra99/unreal-cpp-combat-GAS",
-      "description": "c++ gameplay mechanics with GAS in UE5",
+      "description": "Multiplayer abilities in UE5 C++ built on the Gameplay Ability System",
       "language": "C++",
       "stars": 3,
-      "pushed": "2026-09-07T20:39:55Z"
+      "pushed": "2026-11-14T11:08:00Z"
     },
     {
       "name": "unreal-cpp-interaction-weapon-stealth-combat-ai-system",
       "url": "https://github.com/RahulChandra99/unreal-cpp-interaction-weapon-stealth-combat-ai-system",
-      "description": "c++ based weapon & interactions system",
+      "description": "Hitman-style stealth sandbox in UE5 C++ with modular weapons, context interactions and enemy AI",
       "language": "C++",
       "stars": 4,
-      "pushed": "2026-09-07T20:38:18Z"
+      "pushed": "2026-11-14T11:07:57Z"
+    },
+    {
+      "name": "unreal-cpp-multiplayer-custom-fps",
+      "url": "https://github.com/RahulChandra99/unreal-cpp-multiplayer-custom-fps",
+      "description": "Counter-Strike style multiplayer FPS in UE5 Blueprints, with Steam sessions, teams and a C++ match timer",
+      "language": "C++",
+      "stars": 2,
+      "pushed": "2026-11-14T10:31:38Z"
+    },
+    {
+      "name": "RahulChandra99",
+      "url": "https://github.com/RahulChandra99/RahulChandra99",
+      "description": "",
+      "language": "",
+      "stars": 0,
+      "pushed": "2026-11-14T10:27:10Z"
+    },
+    {
+      "name": "ue5-cpp-parkour-climbing-mechanics",
+      "url": "https://github.com/RahulChandra99/ue5-cpp-parkour-climbing-mechanics",
+      "description": "Climbing and parkour in UE5 C++ with a custom movement mode, ledge detection, vaulting and Control Rig IK",
+      "language": "C++",
+      "stars": 8,
+      "pushed": "2026-11-14T10:21:07Z"
+    },
+    {
+      "name": "unreal-automation-extension-python-qt",
+      "url": "https://github.com/RahulChandra99/unreal-automation-extension-python-qt",
+      "description": "Quick Assistant, a Python and Qt editor toolkit for Unreal Engine. Bournemouth University assignment.",
+      "language": "Python",
+      "stars": 2,
+      "pushed": "2026-11-14T10:05:30Z"
+    },
+    {
+      "name": "custom-editor-tools-unity",
+      "url": "https://github.com/RahulChandra99/custom-editor-tools-unity",
+      "description": "Unity editor tools for project folder setup and custom folder icons",
+      "language": "C#",
+      "stars": 2,
+      "pushed": "2026-11-14T10:05:27Z"
+    },
+    {
+      "name": "portfolio",
+      "url": "https://github.com/RahulChandra99/portfolio",
+      "description": "Source for my portfolio site",
+      "language": "JavaScript",
+      "stars": 0,
+      "pushed": "2026-11-12T12:40:19Z"
     }
   ],
   "days": [
+    {
+      "key": "portfolio@2026-11-14",
+      "repo": {
+        "name": "portfolio",
+        "url": "https://github.com/RahulChandra99/portfolio",
+        "description": "Source for my portfolio site",
+        "language": "JavaScript",
+        "stars": 0,
+        "pushed": "2026-11-12T12:40:19Z"
+      },
+      "date": "2026-11-14",
+      "latest": "2026-11-14T11:37:17Z",
+      "commits": [
+        {
+          "sha": "4acc576",
+          "subject": "Make the home page plainer and warmer",
+          "url": "https://github.com/RahulChandra99/portfolio/commit/4acc576442dd0dfefcdf035577fa4fc1d1bf6524",
+          "at": "2026-11-14T11:37:17Z"
+        }
+      ]
+    },
+    {
+      "key": "unreal-cpp-combat-GAS@2026-11-14",
+      "repo": {
+        "name": "unreal-cpp-combat-GAS",
+        "url": "https://github.com/RahulChandra99/unreal-cpp-combat-GAS",
+        "description": "Multiplayer abilities in UE5 C++ built on the Gameplay Ability System",
+        "language": "C++",
+        "stars": 3,
+        "pushed": "2026-11-14T11:08:00Z"
+      },
+      "date": "2026-11-14",
+      "latest": "2026-11-14T11:07:58Z",
+      "commits": [
+        {
+          "sha": "f69b429",
+          "subject": "Remove DarkerNodes and Electronic Nodes",
+          "url": "https://github.com/RahulChandra99/unreal-cpp-combat-GAS/commit/f69b429d6e5d3c6ab6d1cb4a8f75993f1d3eeee5",
+          "at": "2026-11-14T11:07:58Z"
+        },
+        {
+          "sha": "da1808e",
+          "subject": "Stop tracking build output and ignore it",
+          "url": "https://github.com/RahulChandra99/unreal-cpp-combat-GAS/commit/da1808e008b755df26edfb20a749efb330d31361",
+          "at": "2026-11-14T10:31:40Z"
+        },
+        {
+          "sha": "5aa17d5",
+          "subject": "Tighten README and mark which abilities are Blueprint",
+          "url": "https://github.com/RahulChandra99/unreal-cpp-combat-GAS/commit/5aa17d50e39b8470e466e8af85c87b5391c51fdf",
+          "at": "2026-11-14T10:21:07Z"
+        }
+      ]
+    },
+    {
+      "key": "unreal-cpp-interaction-weapon-stealth-combat-ai-system@2026-11-14",
+      "repo": {
+        "name": "unreal-cpp-interaction-weapon-stealth-combat-ai-system",
+        "url": "https://github.com/RahulChandra99/unreal-cpp-interaction-weapon-stealth-combat-ai-system",
+        "description": "Hitman-style stealth sandbox in UE5 C++ with modular weapons, context interactions and enemy AI",
+        "language": "C++",
+        "stars": 4,
+        "pushed": "2026-11-14T11:07:57Z"
+      },
+      "date": "2026-11-14",
+      "latest": "2026-11-14T11:07:56Z",
+      "commits": [
+        {
+          "sha": "d797f86",
+          "subject": "Remove DarkerNodes and Electronic Nodes and make them optional",
+          "url": "https://github.com/RahulChandra99/unreal-cpp-interaction-weapon-stealth-combat-ai-system/commit/d797f8668b32120002f18d1d90704175ece0efba",
+          "at": "2026-11-14T11:07:56Z"
+        },
+        {
+          "sha": "dc6211a",
+          "subject": "Stop tracking build output and ignore it",
+          "url": "https://github.com/RahulChandra99/unreal-cpp-interaction-weapon-stealth-combat-ai-system/commit/dc6211aa9e9f67ca09db49ed179f4ea4d025add3",
+          "at": "2026-11-14T10:31:38Z"
+        },
+        {
+          "sha": "f29e6cb",
+          "subject": "Tidy README intro and section headings",
+          "url": "https://github.com/RahulChandra99/unreal-cpp-interaction-weapon-stealth-combat-ai-system/commit/f29e6cb7c682b0ee7a6fcf82be70289cedad0f7a",
+          "at": "2026-11-14T10:21:10Z"
+        }
+      ]
+    },
+    {
+      "key": "unreal-cpp-multiplayer-custom-fps@2026-11-14",
+      "repo": {
+        "name": "unreal-cpp-multiplayer-custom-fps",
+        "url": "https://github.com/RahulChandra99/unreal-cpp-multiplayer-custom-fps",
+        "description": "Counter-Strike style multiplayer FPS in UE5 Blueprints, with Steam sessions, teams and a C++ match timer",
+        "language": "C++",
+        "stars": 2,
+        "pushed": "2026-11-14T10:31:38Z"
+      },
+      "date": "2026-11-14",
+      "latest": "2026-11-14T10:31:36Z",
+      "commits": [
+        {
+          "sha": "f2be7e4",
+          "subject": "Stop tracking build output and ignore it",
+          "url": "https://github.com/RahulChandra99/unreal-cpp-multiplayer-custom-fps/commit/f2be7e4a8c7d2a4bb62e14d70715bb34f1ba84e2",
+          "at": "2026-11-14T10:31:36Z"
+        },
+        {
+          "sha": "f198c5f",
+          "subject": "Rewrite README to describe the Blueprint project as it is",
+          "url": "https://github.com/RahulChandra99/unreal-cpp-multiplayer-custom-fps/commit/f198c5fe16113d0557fb98b9e87ffa5fe7021bb4",
+          "at": "2026-11-14T10:26:57Z"
+        }
+      ]
+    },
+    {
+      "key": "RahulChandra99@2026-11-14",
+      "repo": {
+        "name": "RahulChandra99",
+        "url": "https://github.com/RahulChandra99/RahulChandra99",
+        "description": "",
+        "language": "",
+        "stars": 0,
+        "pushed": "2026-11-14T10:27:10Z"
+      },
+      "date": "2026-11-14",
+      "latest": "2026-11-14T10:27:09Z",
+      "commits": [
+        {
+          "sha": "e5738b1",
+          "subject": "Describe the FPS project accurately",
+          "url": "https://github.com/RahulChandra99/RahulChandra99/commit/e5738b12e1190aca36811802f84ef7268c60dfb4",
+          "at": "2026-11-14T10:27:09Z"
+        },
+        {
+          "sha": "38434e8",
+          "subject": "Rewrite profile README",
+          "url": "https://github.com/RahulChandra99/RahulChandra99/commit/38434e8c22c779e61f0cab57123e16f057b7d2e9",
+          "at": "2026-11-14T10:05:24Z"
+        }
+      ]
+    },
+    {
+      "key": "ue5-cpp-parkour-climbing-mechanics@2026-11-14",
+      "repo": {
+        "name": "ue5-cpp-parkour-climbing-mechanics",
+        "url": "https://github.com/RahulChandra99/ue5-cpp-parkour-climbing-mechanics",
+        "description": "Climbing and parkour in UE5 C++ with a custom movement mode, ledge detection, vaulting and Control Rig IK",
+        "language": "C++",
+        "stars": 8,
+        "pushed": "2026-11-14T10:21:07Z"
+      },
+      "date": "2026-11-14",
+      "latest": "2026-11-14T10:21:05Z",
+      "commits": [
+        {
+          "sha": "79031aa",
+          "subject": "Rewrite README around the real movement component code",
+          "url": "https://github.com/RahulChandra99/ue5-cpp-parkour-climbing-mechanics/commit/79031aa3faf428ac4734be193af52e47d13ee884",
+          "at": "2026-11-14T10:21:05Z"
+        }
+      ]
+    },
+    {
+      "key": "unreal-automation-extension-python-qt@2026-11-14",
+      "repo": {
+        "name": "unreal-automation-extension-python-qt",
+        "url": "https://github.com/RahulChandra99/unreal-automation-extension-python-qt",
+        "description": "Quick Assistant, a Python and Qt editor toolkit for Unreal Engine. Bournemouth University assignment.",
+        "language": "Python",
+        "stars": 2,
+        "pushed": "2026-11-14T10:05:30Z"
+      },
+      "date": "2026-11-14",
+      "latest": "2026-11-14T10:05:28Z",
+      "commits": [
+        {
+          "sha": "0a138fe",
+          "subject": "Shorten README introduction",
+          "url": "https://github.com/RahulChandra99/unreal-automation-extension-python-qt/commit/0a138feaae55b8ed2c39e83f8dfdf814cb6bf0ed",
+          "at": "2026-11-14T10:05:28Z"
+        }
+      ]
+    },
+    {
+      "key": "custom-editor-tools-unity@2026-11-14",
+      "repo": {
+        "name": "custom-editor-tools-unity",
+        "url": "https://github.com/RahulChandra99/custom-editor-tools-unity",
+        "description": "Unity editor tools for project folder setup and custom folder icons",
+        "language": "C#",
+        "stars": 2,
+        "pushed": "2026-11-14T10:05:27Z"
+      },
+      "date": "2026-11-14",
+      "latest": "2026-11-14T10:05:26Z",
+      "commits": [
+        {
+          "sha": "442defd",
+          "subject": "Trim README to what the package does and how to use it",
+          "url": "https://github.com/RahulChandra99/custom-editor-tools-unity/commit/442defd5850b0e1a209b36f4022cbd0dff07c16a",
+          "at": "2026-11-14T10:05:26Z"
+        }
+      ]
+    },
     {
       "key": "portfolio@2026-11-12",
       "repo": {
         "name": "portfolio",
         "url": "https://github.com/RahulChandra99/portfolio",
-        "description": "Source for my portfolio site. ",
+        "description": "Source for my portfolio site",
         "language": "JavaScript",
         "stars": 0,
-        "pushed": "2026-11-12T10:01:15Z"
+        "pushed": "2026-11-12T12:40:19Z"
       },
       "date": "2026-11-12",
-      "latest": "2026-11-12T10:01:14Z",
+      "latest": "2026-11-12T12:38:49Z",
       "commits": [
+        {
+          "sha": "484e952",
+          "subject": "Make the dev blog title orange",
+          "url": "https://github.com/RahulChandra99/portfolio/commit/484e952d50dc3f3a05072012ad7a5601987072dd",
+          "at": "2026-11-12T12:38:49Z"
+        },
+        {
+          "sha": "0d2e78b",
+          "subject": "Trim the dev blog header to just the title",
+          "url": "https://github.com/RahulChandra99/portfolio/commit/0d2e78ba51075d0d49dfd50418c39c8a43c8e8a7",
+          "at": "2026-11-12T12:32:19Z"
+        },
+        {
+          "sha": "94c0b36",
+          "subject": "Replace the dev blog heading with how I use AI",
+          "url": "https://github.com/RahulChandra99/portfolio/commit/94c0b367c50abf687763c176f6cc532d1aab057b",
+          "at": "2026-11-12T12:30:50Z"
+        },
+        {
+          "sha": "ebb34a9",
+          "subject": "Update the README for the articles list",
+          "url": "https://github.com/RahulChandra99/portfolio/commit/ebb34a9c52f2b2434dfe12733062db1f98d7cc9f",
+          "at": "2026-11-12T12:29:08Z"
+        },
+        {
+          "sha": "f1ce03e",
+          "subject": "Drop the featured card and list every article under Articles",
+          "url": "https://github.com/RahulChandra99/portfolio/commit/f1ce03e5dfb40ec048078eeda0aef394fcd836db",
+          "at": "2026-11-12T12:28:53Z"
+        },
+        {
+          "sha": "c78f799",
+          "subject": "Split the dev blog into Articles and GitHub commits and drop RSS",
+          "url": "https://github.com/RahulChandra99/portfolio/commit/c78f7999268258842088ee661d9c89fcf7aa78b4",
+          "at": "2026-11-12T12:24:06Z"
+        },
+        {
+          "sha": "b5e73d1",
+          "subject": "Rename the blog to Dev blog at /dev-blog and drop thoughts",
+          "url": "https://github.com/RahulChandra99/portfolio/commit/b5e73d164bb7cbabe2cf40376048c352cf1b938a",
+          "at": "2026-11-12T12:16:43Z"
+        },
+        {
+          "sha": "ffd1321",
+          "subject": "Publish the first article and thought on the blog",
+          "url": "https://github.com/RahulChandra99/portfolio/commit/ffd1321cc48d34e3d9fbaf8f13bcc694c53b7097",
+          "at": "2026-11-12T11:58:17Z"
+        },
+        {
+          "sha": "84f3a5a",
+          "subject": "Redesign the blog with articles, dev updates and thoughts",
+          "url": "https://github.com/RahulChandra99/portfolio/commit/84f3a5a03488fcc2619b77c4182cf5ac7445fd8d",
+          "at": "2026-11-12T11:54:48Z"
+        },
+        {
+          "sha": "dff3a6c",
+          "subject": "Rename the journal to blog and redirect old journal links",
+          "url": "https://github.com/RahulChandra99/portfolio/commit/dff3a6cdddbbc56324436d07d40636de614a90d8",
+          "at": "2026-11-12T11:49:22Z"
+        },
         {
           "sha": "7c35b6f",
           "subject": "Merge GitHub and Terminal into the Connect section",
@@ -162,10 +426,10 @@
       "repo": {
         "name": "portfolio",
         "url": "https://github.com/RahulChandra99/portfolio",
-        "description": "Source for my portfolio site. ",
+        "description": "Source for my portfolio site",
         "language": "JavaScript",
         "stars": 0,
-        "pushed": "2026-11-12T10:01:15Z"
+        "pushed": "2026-11-12T12:40:19Z"
       },
       "date": "2026-11-11",
       "latest": "2026-11-11T11:29:07Z",
