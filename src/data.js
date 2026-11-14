@@ -6,7 +6,6 @@
 export const profile = {
   name: 'Rahul Chandra',
   role: 'Senior Game Programmer · C++ / C#',
-  location: 'London, UK',
   avatar: '/images/avatar.jpg',
   intro:
     'Senior game programmer with 5+ years of C++ and C#, building abilities, AI, networking and tools that are fast and easy for designers to tune. I\'ve worked on an unannounced AAA console and PC game, Red Rust Pioneers (co-op survival on Steam) and mobile titles that hit #1 on the UK App Store.',
@@ -65,7 +64,6 @@ export const experience = [
     company: 'fish in a bottle',
     role: 'C++ Unreal Game Developer',
     dates: 'Apr 2026 – Present',
-    place: 'Remote, UK',
     project: 'Red Rust Pioneers (PC)',
     highlights: [
       'Quest architecture with shared objectives, stage progression and reward distribution',
@@ -77,7 +75,6 @@ export const experience = [
     company: 'Revived Overworld',
     role: 'C++ Unreal Gameplay / AI Programmer · Contract',
     dates: 'Dec 2024 – Apr 2026',
-    place: 'Remote',
     project: 'Unannounced AAA project (Console & PC)',
     highlights: [
       '10+ multiplayer-ready GAS abilities (dash, teleport, invisibility, shield, fireball, rewind) in a large shared codebase',
@@ -90,7 +87,6 @@ export const experience = [
     company: 'BeGames Ltd.',
     role: 'Senior Unity Gameplay Programmer',
     dates: 'Jan 2022 – Jan 2024',
-    place: 'London, UK',
     project: '3+ shipped mobile titles, incl. The Wombats & Mavin Runner',
     highlights: [
       'Shipped gameplay for music titles that reached #1 on the UK App Store',
@@ -103,7 +99,6 @@ export const experience = [
     company: 'HoloWorld',
     role: 'AR/VR Unity Engineer',
     dates: 'May 2021 – Feb 2022',
-    place: 'Mysore, India',
     project: 'AR educational apps',
     highlights: [
       'Interactive AR experiences that teach science and maths concepts, built with educators',

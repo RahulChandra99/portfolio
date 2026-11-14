@@ -68,7 +68,7 @@ function Hero() {
           <img className="avatar" src={profile.avatar} alt={`Portrait of ${profile.name}`} width="112" height="112" />
           <div>
             <h1>{profile.name}</h1>
-            <p className="hero-role">Senior Game Programmer, C++ / C#. {profile.location}.</p>
+            <p className="hero-role">Senior Game Programmer, C++ / C#</p>
           </div>
         </div>
 
@@ -140,7 +140,7 @@ function Experience() {
           <li key={job.company} className="job">
             <div className="job-card">
               <p className="job-when">
-                {job.dates} <span>· {job.place}</span>
+                {job.dates}
               </p>
               <h3>{job.role}</h3>
               <p className="job-company">{job.company} <span>· {job.project}</span></p>
@@ -293,7 +293,7 @@ export default function App() {
         <Contact />
       </main>
       <footer className="footer">
-        <p>Rahul Chandra, {profile.location}. Built with React and Vite, source on <ExternalLink href="https://github.com/RahulChandra99/portfolio">GitHub</ExternalLink>.</p>
+        <p>Rahul Chandra. Built with React and Vite, source on <ExternalLink href="https://github.com/RahulChandra99/portfolio">GitHub</ExternalLink>.</p>
       </footer>
     </>
   )
