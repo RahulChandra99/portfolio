@@ -1,5 +1,4 @@
-import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState } from 'react'
-import PageBackground from './PageBackground'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import Terminal from './components/Terminal'
 import GitHubActivity from './components/GitHubActivity'
 import useSyncedProjects from './useSyncedProjects'
@@ -64,34 +63,35 @@ function Hero() {
   const { links } = profile
   return (
     <section className="hero" id="top">
-      <PageBackground />
       <div className="hero-inner">
-        <img className="avatar" src={profile.avatar} alt={`Portrait of ${profile.name}`} width="168" height="168" />
-        <h1>{profile.name}</h1>
-        <p className="hero-role">Senior Game Programmer · C++ / C#</p>
+        <div className="hero-head">
+          <img className="avatar" src={profile.avatar} alt={`Portrait of ${profile.name}`} width="112" height="112" />
+          <div>
+            <h1>{profile.name}</h1>
+            <p className="hero-role">Senior Game Programmer, C++ / C#. {profile.location}.</p>
+          </div>
+        </div>
 
         <p className="hero-intro">
-          {profile.intro} Explore my <a href="#projects">personal projects</a> or
+          {profile.intro} Have a look at my <a href="#projects">personal projects</a> or
           see <a href="#work">where I've worked</a>.
         </p>
 
-        <ul className="stack">
-          {profile.techStack.map((t, n) => (
-            <li key={t.name} style={{ '--n': n }}>
-              <span className="stack-icon">
-                {t.icon ? <Icon name={t.icon} /> : <span className="stack-text">{t.text}</span>}
-              </span>
-              <span className="stack-name">{t.name}</span>
-            </li>
+        <p className="stack">
+          <span className="stack-label">I work in</span>
+          {profile.techStack.map(t => (
+            <span key={t.name} className="stack-item">
+              {t.icon && <Icon name={t.icon} />}{t.name}
+            </span>
           ))}
-        </ul>
+        </p>
 
-        <div className="link-row">
-          <ExternalLink href={links.github} className="btn btn-wide"><Icon name="github" /> GitHub</ExternalLink>
-          <ExternalLink href={links.linkedin} className="btn btn-wide"><Icon name="linkedin" /> LinkedIn</ExternalLink>
-          <ExternalLink href={links.youtube} className="btn btn-wide"><Icon name="youtube" /> YouTube</ExternalLink>
-          <ExternalLink href={links.itch} className="btn btn-wide"><Icon name="itchdotio" /> itch.io</ExternalLink>
-        </div>
+        <p className="hero-links">
+          <ExternalLink href={links.github}><Icon name="github" /> GitHub</ExternalLink>
+          <ExternalLink href={links.linkedin}><Icon name="linkedin" /> LinkedIn</ExternalLink>
+          <ExternalLink href={links.youtube}><Icon name="youtube" /> YouTube</ExternalLink>
+          <ExternalLink href={links.itch}><Icon name="itchdotio" /> itch.io</ExternalLink>
+        </p>
       </div>
     </section>
   )
@@ -113,17 +113,15 @@ function Featured() {
       <SectionTitle>Currently working on</SectionTitle>
       <article className="feature" style={{ '--banner': `url(${f.banner || f.image})` }}>
         <div className="feature-body">
-          <p className="feature-status">Now · {f.status}</p>
+          <p className="feature-status">{f.status}</p>
           <h3>{f.title}</h3>
           <p className="feature-role">{f.role} at {f.studio}</p>
           <p className="feature-summary">{f.summary}</p>
           <ul className="square-bullets">
             {f.highlights.map(h => <li key={h}>{h}</li>)}
           </ul>
-          <ul className="pills">
-            {f.tags.map(t => <li key={t}>{t}</li>)}
-          </ul>
-          <ExternalLink href={f.link.url} className="btn btn-blue btn-large">{f.link.label} ↗</ExternalLink>
+          <p className="tag-line">{f.tags.join(', ')}</p>
+          <ExternalLink href={f.link.url} className="btn btn-blue btn-large">{f.link.label}</ExternalLink>
         </div>
         <ExternalLink href={f.link.url} className="feature-capsule" aria-label={`${f.title} on Steam`}>
           <img src={f.image} alt={`${f.title} key art`} loading="lazy" />
@@ -157,9 +155,9 @@ function Experience() {
   )
 }
 
-function ProjectCard({ project, index }) {
+function ProjectCard({ project }) {
   return (
-    <article className="card frame" style={{ '--i': index }}>
+    <article className="card frame">
       <ExternalLink
         href={project.video || project.live || project.code}
         className="card-media"
@@ -168,14 +166,10 @@ function ProjectCard({ project, index }) {
         {project.image
           ? <img src={project.image} alt="" loading="lazy" />
           : <span className="card-placeholder" aria-hidden="true">{initials(project.title)}</span>}
-        <span className="badges badges-overlay">
-          <span className="badge badge-pink">Personal</span>
-          <span className="badge">{categoryLabel[project.category]}</span>
-        </span>
       </ExternalLink>
       <div className="card-body">
         <h3>{project.title}</h3>
-        <p className="muted small">{project.meta}</p>
+        <p className="muted small">{[categoryLabel[project.category], project.meta].filter(Boolean).join(' · ')}</p>
         <p>{project.summary}</p>
         <ul className="bullets">
           {project.highlights.map(h => <li key={h}>{h}</li>)}
@@ -197,8 +191,6 @@ function Projects() {
   // `shown` lags `filter` while the old cards animate out
   const [shown, setShown] = useState('all')
   const [leaving, setLeaving] = useState(false)
-  const [indicator, setIndicator] = useState(null)
-  const filtersRef = useRef(null)
   const timer = useRef(null)
   const synced = useSyncedProjects()
   const all = [...projects, ...synced]
@@ -207,18 +199,6 @@ function Projects() {
     .filter(id => !filters.some(f => f.id === id))
     .map(id => ({ id, label: categoryLabel[id] || id }))]
   const visible = shown === 'all' ? all : all.filter(p => p.category === shown)
-
-  // Slide the highlight under whichever filter button is active
-  useLayoutEffect(() => {
-    const update = () => {
-      const btn = filtersRef.current?.querySelector('[aria-pressed="true"]')
-      if (btn) setIndicator({ x: btn.offsetLeft, y: btn.offsetTop, w: btn.offsetWidth, h: btn.offsetHeight })
-    }
-    update()
-    document.fonts?.ready.then(update)
-    window.addEventListener('resize', update)
-    return () => window.removeEventListener('resize', update)
-  }, [filter])
 
   useEffect(() => () => clearTimeout(timer.current), [])
 
@@ -231,26 +211,19 @@ function Projects() {
     timer.current = setTimeout(() => {
       setShown(id)
       setLeaving(false)
-    }, 200)
+    }, 120)
   }
 
   return (
     <section className="section" id="projects">
-      <SectionTitle sub="Gameplay systems, tools and Chrome extensions, with demos and source on GitHub.">
+      <SectionTitle sub="Things I build outside work. Gameplay systems, editor tools and a few Chrome extensions. Most have a video and the source.">
         Projects
       </SectionTitle>
-      <div className="filters" role="group" aria-label="Filter projects" ref={filtersRef}>
-        {indicator && (
-          <span
-            className="filter-indicator"
-            aria-hidden="true"
-            style={{ width: indicator.w, height: indicator.h, transform: `translate(${indicator.x}px, ${indicator.y}px)` }}
-          />
-        )}
+      <div className="filters" role="group" aria-label="Filter projects">
         {chips.map(f => (
           <button
             key={f.id}
-            className={`btn btn-small filter-btn ${filter === f.id ? 'active' : ''}`}
+            className="filter-btn"
             aria-pressed={filter === f.id}
             onClick={() => choose(f.id)}
           >
@@ -259,8 +232,7 @@ function Projects() {
         ))}
       </div>
       <div className={`card-grid ${leaving ? 'is-leaving' : ''}`}>
-        {/* Keyed by filter so every card replays its entrance animation */}
-        {visible.map((p, i) => <ProjectCard key={`${shown}:${p.title}`} project={p} index={i} />)}
+        {visible.map(p => <ProjectCard key={p.title} project={p} />)}
       </div>
     </section>
   )
@@ -273,22 +245,22 @@ function Contact() {
     <section className="section contact" id="contact">
       <SectionTitle>Connect</SectionTitle>
       <p className="contact-text">
-        Open to chatting about roles and collaborations.
+        Happy to talk about roles, collaborations or anything game dev. Email is the quickest way to reach me.
       </p>
       <div className="link-row">
-        {links.email && <a href={`mailto:${links.email}`} className="btn btn-blue btn-wide"><Icon name="gmail" /> Email me</a>}
-        <ExternalLink href={links.linkedin} className="btn btn-wide"><Icon name="linkedin" /> LinkedIn</ExternalLink>
-        <ExternalLink href={links.github} className="btn btn-wide"><Icon name="github" /> GitHub</ExternalLink>
-        <ExternalLink href={links.resume} className="btn btn-wide">Resume</ExternalLink>
+        {links.email && <a href={`mailto:${links.email}`} className="btn btn-blue"><Icon name="gmail" /> Email me</a>}
+        <ExternalLink href={links.linkedin} className="btn"><Icon name="linkedin" /> LinkedIn</ExternalLink>
+        <ExternalLink href={links.github} className="btn"><Icon name="github" /> GitHub</ExternalLink>
+        <ExternalLink href={links.resume} className="btn">Resume</ExternalLink>
       </div>
 
       <div className="contact-block" id="github">
-        <h3 className="contact-label">GitHub activity</h3>
+        <h3 className="contact-label">What I've been committing</h3>
         <GitHubActivity user={links.github.split('/').pop()} profileUrl={links.github} />
       </div>
 
       <div className="contact-block" id="terminal">
-        <h3 className="contact-label">Terminal</h3>
+        <h3 className="contact-label">Or poke around in the terminal</h3>
         <Terminal />
         <p className="terminal-tip">
           Try <code>help</code>, <code>whoami</code>, <code>experience</code> or <code>sudo hire rahul</code>
@@ -320,6 +292,9 @@ export default function App() {
         <Experience />
         <Contact />
       </main>
+      <footer className="footer">
+        <p>Rahul Chandra, {profile.location}. Built with React and Vite, source on <ExternalLink href="https://github.com/RahulChandra99/portfolio">GitHub</ExternalLink>.</p>
+      </footer>
     </>
   )
 }

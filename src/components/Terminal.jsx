@@ -91,7 +91,6 @@ export default function Terminal() {
   return (
     <div className="terminal" onClick={() => inputRef.current?.focus({ preventScroll: true })}>
       <div className="terminal-bar">
-        <span className="dot red" /><span className="dot yellow" /><span className="dot green" />
         <span className="terminal-title">rahul@portfolio:~</span>
       </div>
       <div className="terminal-body" ref={bodyRef} aria-live="polite">
